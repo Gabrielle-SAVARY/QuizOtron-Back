@@ -3,7 +3,8 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "nodemon": "^2.0.22",
-    "pg": "^8.10.0"
+    "pg": "^8.10.0",
+    "sequelize": "^6.31.1"
   },
   "name": "quiz-o-tron-back",
   "description": "Back End of the project Quiz'O'Tron",
