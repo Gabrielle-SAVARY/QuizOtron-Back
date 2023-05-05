@@ -60,7 +60,7 @@ CREATE TABLE "question" (
     "answer_id" INTEGER NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMPTZ
-)
+);
 
 -- Table "answer"
 CREATE TABLE "answer" (
@@ -69,7 +69,7 @@ CREATE TABLE "answer" (
     "question_id" INTEGER NOT NULL REFERENCES "question" ("id"),
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMPTZ
-)
+);
 
 -- Table "tag"
 CREATE TABLE "tag" (
@@ -77,7 +77,7 @@ CREATE TABLE "tag" (
     "name" TEXT NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMPTZ
-)
+);
 
 -- Table "level"
 CREATE TABLE "level" (
@@ -85,7 +85,7 @@ CREATE TABLE "level" (
     "name" TEXT NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMPTZ
-)
+);
 
 -- Table "quiz_has_tag"
 CREATE TABLE "quiz_has_tag" (
@@ -94,7 +94,7 @@ CREATE TABLE "quiz_has_tag" (
     "tag_id" INTEGER NOT NULL REFERENCES "tag" ("id"),
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMPTZ
-)
+);
 
 -- Table "favorites"
 CREATE TABLE "favorites" (
@@ -103,7 +103,7 @@ CREATE TABLE "favorites" (
     "quiz_id" INTEGER NOT NULL REFERENCES "quiz" ("id"),
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMPTZ
-)
+);
 
 -- Table "scores"
 CREATE TABLE "scores" (
@@ -113,7 +113,7 @@ CREATE TABLE "scores" (
     "quiz_id" INTEGER NOT NULL REFERENCES "quiz" ("id"),
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMPTZ
-)
+);
 
 
 ALTER TABLE "user"
@@ -124,6 +124,8 @@ ALTER TABLE "quiz"
 
 ALTER TABLE "question"
   ADD FOREIGN KEY ("level_id") REFERENCES "level" ("id");
+
+ALTER TABLE "question"
   ADD FOREIGN KEY ("answer_id") REFERENCES "answer" ("id");
 
 
