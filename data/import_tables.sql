@@ -2,7 +2,7 @@ BEGIN;
 
 
 -- On supprime les tables si elles existent déjà car c'est un script de création
-DROP TABLE IF EXISTS "users",
+DROP TABLE IF EXISTS "user",
 "role",
 "quiz",
 "question",
