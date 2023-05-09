@@ -163,7 +163,7 @@ INSERT INTO "answer" ("id", "description", "question_id") VALUES
 (120, 'Égypte', 30);
 
 -- Données de la table "question"
-INSERT INTO "question" ("id", "description", "quiz_id", "level_id", "answer_id") VALUES
+INSERT INTO "question" ("id", "question", "quiz_id", "level_id", "answer_id") VALUES
 -- Questions Connaissances cinématographiques
 (1, 'Dans quel film peut-on entendre la célèbre réplique "I''ll be back" ?', 1, 1, 2),
 (2, 'Dans quel film joue Tom Hanks un employé de FedEx échoué sur une île déserte ?', 1, 1, 5),
