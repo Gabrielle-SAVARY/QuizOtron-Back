@@ -28,7 +28,7 @@ User.init({
   },
   global_score: {
     type: Datatypes.INTEGER,
-  },
+  }
 },{
   sequelize,
   tableName: "user"
