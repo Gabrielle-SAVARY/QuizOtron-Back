@@ -204,8 +204,8 @@ INSERT INTO "quiz_has_tag" ("id", "quiz_id", "tag_id") VALUES
 (2, 2, 2),
 (3, 3, 3);
 
--- Données de la table de liaison "favorites"
-INSERT INTO "favorites" ("id", "user_id", "quiz_id") VALUES
+-- Données de la table de liaison "favorite"
+INSERT INTO "favorite" ("id", "user_id", "quiz_id") VALUES
 (1, 1, 1),
 (2, 1, 2),
 (3, 1, 3),
@@ -214,8 +214,8 @@ INSERT INTO "favorites" ("id", "user_id", "quiz_id") VALUES
 (6, 3, 3),
 (7, 3, 2);
 
--- Données de la table de liaison "scores"
-INSERT INTO "scores" ("id", "score", "user_id", "quiz_id") VALUES
+-- Données de la table de liaison "score"
+INSERT INTO "score" ("id", "score", "user_id", "quiz_id") VALUES
 (1, 10, 1, 1),
 (2, 4, 1, 3),
 (3, 7, 1, 2),

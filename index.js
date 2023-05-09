@@ -15,5 +15,5 @@ const app = express();
 /* ---------- App ---------- */
 
 app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT} 🚀`);
+  console.log(`Listening on port ${PORT} ${process.env.PG_URL}🚀`);
 });
