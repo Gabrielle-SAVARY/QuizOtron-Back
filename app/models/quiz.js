@@ -1,19 +1,19 @@
-const { Datatypes, Model } = require('sequelize');
+const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../database');
 
 class Quiz extends Model {}
 
 Quiz.init({
   title: {
-    type: Datatypes.TEXT,
+    type: DataTypes.TEXT,
     allowNull: false,
   },
   description: {
-    type: Datatypes.TEXT,
+    type: DataTypes.TEXT,
     allowNull: false,
   },
   thumbnail: {
-    type: Datatypes.TEXT,
+    type: DataTypes.TEXT,
     allowNull: false,
   }
 },{

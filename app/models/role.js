@@ -1,11 +1,11 @@
-const { Datatypes, Model } = require('sequelize');
+const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../database');
 
 class Role extends Model {}
 
 Role.init({
   label: {
-    type: Datatypes.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
   }
 },{

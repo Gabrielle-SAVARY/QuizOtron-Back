@@ -1,33 +1,33 @@
-const { Datatypes, Model } = require('sequelize');
+const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../database');
 
 class User extends Model {}
 
 User.init({
   pseudo: {
-    type: Datatypes.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
     unique: true,
   },
   email: {
-    type: Datatypes.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
     unique: true,
   },
   firstname: {
-    type: Datatypes.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   lastname: {
-    type: Datatypes.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   password: {
-    type: Datatypes.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   global_score: {
-    type: Datatypes.INTEGER,
+    type: DataTypes.INTEGER,
   }
 },{
   sequelize,
