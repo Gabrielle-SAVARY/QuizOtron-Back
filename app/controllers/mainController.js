@@ -1,4 +1,4 @@
-const { Quiz } = require("../models");
+ 
 
 const mainController = {
   getHomePage: async () => {

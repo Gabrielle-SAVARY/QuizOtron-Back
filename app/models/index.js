@@ -63,7 +63,7 @@ User.hasMany(Quiz, {
 
 Quiz.belongsTo(User, {
   foreignKey: 'user_id',
-  as: 'user',
+  as: 'author',
 });
 
 // relation entre les utilisateurs et les rôles
