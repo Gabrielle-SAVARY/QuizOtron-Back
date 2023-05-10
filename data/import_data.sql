@@ -231,3 +231,18 @@ ALTER TABLE "answer"
   ADD FOREIGN KEY ("question_id") REFERENCES "question" ("id");
 
 COMMIT;
+
+BEGIN;
+
+SELECT setval('level_id_seq', (SELECT MAX(id) from "level"));
+SELECT setval('answer_id_seq', (SELECT MAX(id) from "answer"));
+SELECT setval('user_id_seq', (SELECT MAX(id) from "user"));
+SELECT setval('question_id_seq', (SELECT MAX(id) from "question"));
+SELECT setval('quiz_id_seq', (SELECT MAX(id) from "quiz"));
+SELECT setval('tag_id_seq', (SELECT MAX(id) from "tag"));
+SELECT setval('role_id_seq', (SELECT MAX(id) from "role"));
+SELECT setval('quiz_has_tag_id_seq', (SELECT MAX(id) from "quiz_has_tag"));
+SELECT setval('favorite_id_seq', (SELECT MAX(id) from "favorite"));
+SELECT setval('score_id_seq', (SELECT MAX(id) from "score"));
+
+COMMIT;

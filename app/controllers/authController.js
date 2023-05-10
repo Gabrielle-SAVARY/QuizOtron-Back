@@ -39,7 +39,7 @@ const authController = {
         const user = await User.create(newUser);
         res.redirect('/login');
       } catch (error) {
-        console.log(error);
+        res.status(500).json(error);
       }
     }
 };
