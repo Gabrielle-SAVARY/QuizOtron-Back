@@ -85,6 +85,27 @@ const quizController = {
     res.json(levels);
   },
 
+  getQuizzesByLevel: async (req, res) => {
+    const levelName = req.params.name;
+
+    const levels = await Level.findAll({
+      where: {name: {
+        [Op.iLike]: levelName
+      }},
+      include: [
+        {
+          association: 'quizzes', include: [
+            {association: 'level'},
+            {association: 'author'},
+            {association: 'tags'},
+          ]
+        }
+      ]
+    });
+
+    res.json(levels);
+  },
+
 };
 
 module.exports = quizController;

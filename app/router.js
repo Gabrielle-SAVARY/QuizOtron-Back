@@ -11,6 +11,7 @@ router.get('/quiz/:id', quizController.getOneQuiz);
 router.get('/tag', quizController.getTags);
 router.get('/tag/:name', quizController.getQuizzesByTag);
 router.get('/level', quizController.getLevels);
+router.get('/level/:name', quizController.getQuizzesByLevel);
 router.get('/profile/history', userController.getUserHistory);
 router.get('/profile/favorites', userController.getUserFavorites);
 
