@@ -23,6 +23,33 @@ const authController = {
         return res.status(400).json("Merci de renseigner un email valide");
       }
 
+      // On vérifie que l'email n'est pas déjà utilisé
+      const emailExists = await User.findOne({
+        where: {
+          email: {
+            // On utilise Op.iLike car on veut que la recherche soit insensible à la casse
+            [Op.iLike]: email,
+          }
+        }
+      });
+
+      if (emailExists) {
+        return res.status(400).json("Cet email est déjà utilisé");
+      }
+
+      // On vérifie que le pseudo n'est pas déjà utilisé
+      const pseudoExists = await User.findOne({
+        where: {
+          pseudo: {
+            [Op.iLike]: pseudo,
+          }
+        }
+      });
+
+      if (pseudoExists) {
+        return res.status(400).json("Ce pseudo est déjà utilisé");
+      }
+
       // On hash le mot de passe avant de l'enregistrer en base de données
       const hash = bcrypt.hashSync(password, 10);
 
@@ -37,7 +64,7 @@ const authController = {
       };
 
       try {
-        const user = await User.create(newUser);
+        await User.create(newUser);
         res.redirect('/login');
       } catch (error) {
         res.status(500).json(error);
@@ -62,7 +89,6 @@ const authController = {
         const user = await User.findOne({
           where: {
             email: {
-              // On utilise Op.iLike car on veut que la recherche soit insensible à la casse
               [Op.iLike]: email,
             }
           }
