@@ -1,4 +1,5 @@
 const { Quiz, Tag } = require("../models");
+const { Op } = require("sequelize");
 
 const quizController = {
   getAllQuizzes: async (req, res) => {
@@ -56,6 +57,26 @@ const quizController = {
 
   getTags: async (req, res) => {
     const tags = await Tag.findAll();
+    res.json(tags);
+  },
+
+  getQuizzesByTag: async (req, res) => {
+    const tagName = req.params.name;
+
+    const tags = await Tag.findAll({
+      where: {name: {
+        [Op.iLike]: tagName
+      }},
+      include: [
+        {
+          association: 'quizzes', include: [
+            {association: 'level'},
+            {association: 'author'},
+            {association: 'tags'},
+          ]
+        }
+      ]
+    });
     res.json(tags);
   },
 
