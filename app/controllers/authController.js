@@ -1,5 +1,6 @@
 const emailValidator = require("email-validator");
 const bcrypt = require("bcrypt");
+const { User } = require("../models");
 
 const authController = {
     register: async (req, res) => {
@@ -31,10 +32,15 @@ const authController = {
         firstname: firstname,
         lastname: lastname,
         password: hash,
+        role_id: 1,
       };
 
-      
-      // res.redirect('/login');
+      try {
+        const user = await User.create(newUser);
+        res.redirect('/login');
+      } catch (error) {
+        console.log(error);
+      }
     }
 };
 
