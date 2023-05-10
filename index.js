@@ -6,10 +6,11 @@ dotenv.config();
 const express = require('express');
 const router = require('./app/router');
 
-const PORT = process.env.PORT || 3000;
 const app = express();
+const PORT = process.env.PORT || 3000;
 
 /* ---------- Middlewares ---------- */
+app.use(express.urlencoded({extended: true}));
 app.use(router);
 
 /* ---------- App ---------- */
