@@ -9,6 +9,7 @@ const router = express.Router();
 router.get('/quiz', quizController.getAllQuizzes);
 router.get('/quiz/:id', quizController.getOneQuiz);
 router.get('/profile/history', userController.getUserHistory);
+router.get('/profile/favorites', userController.getUserFavorites);
 
 router.post('/signup', authController.register);
 router.post('/login', authController.login);
