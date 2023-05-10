@@ -1,4 +1,4 @@
-const { Quiz, Tag } = require("../models");
+const { Quiz, Tag, Level } = require("../models");
 const { Op } = require("sequelize");
 
 const quizController = {
@@ -78,6 +78,11 @@ const quizController = {
       ]
     });
     res.json(tags);
+  },
+
+  getLevels: async (req, res) => {
+    const levels = await Level.findAll();
+    res.json(levels);
   },
 
 };
