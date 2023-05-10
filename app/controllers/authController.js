@@ -1,25 +1,40 @@
 const emailValidator = require("email-validator");
+const bcrypt = require("bcrypt");
 
 const authController = {
     register: async (req, res) => {
+      // On récupère les données envoyées dans le formulaire
       const {pseudo, email,  firstname, lastname, password, passwordConfirm} = req.body;
 
+      // On vérifie que tous les champs sont remplis
       if (!pseudo || !email || !firstname || !lastname || !password || !passwordConfirm) {
-        res.status(400);
-        res.send("Merci de remplir tous les champs");
+        return res.status(400).json("Merci de remplir tous les champs");
       }
 
+      // On vérifie que les mots de passe correspondent
       if (password !== passwordConfirm) {
-        res.status(400);
-        res.send("Les mots de passe ne correspondent pas");
+        return res.status(400).json("Les mots de passe ne correspondent pas");
       }
 
+      // On vérifie que l'email est valide
       if (!emailValidator.validate(email)) {
-        res.status(400);
-        res.send("Merci de renseigner un email valide");
+        return res.status(400).json("Merci de renseigner un email valide");
       }
 
+      // On hash le mot de passe avant de l'enregistrer en base de données
+      const hash = bcrypt.hashSync(password, 10);
 
+      // On crée un nouvel utilisateur
+      const newUser = {
+        pseudo: pseudo,
+        email: email,
+        firstname: firstname,
+        lastname: lastname,
+        password: hash,
+      };
+
+      
+      // res.redirect('/login');
     }
 };
 
