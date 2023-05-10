@@ -41,6 +41,10 @@ const authController = {
       } catch (error) {
         res.status(500).json(error);
       }
+    },
+
+    login: async (req, res) => {
+      
     }
 };
 

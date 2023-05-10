@@ -9,4 +9,5 @@ router.get('/quiz', quizController.getAllQuizzes);
 router.get('/quiz/:id', quizController.getOneQuiz);
 
 router.post('/signup', authController.register);
+router.post('/login', authController.login);
 module.exports = router;
