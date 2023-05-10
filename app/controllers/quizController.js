@@ -1,4 +1,4 @@
-const { Quiz } = require("../models");
+const { Quiz, Tag } = require("../models");
 
 const quizController = {
   getAllQuizzes: async (req, res) => {
@@ -53,6 +53,12 @@ const quizController = {
     });
     res.json(quiz);
   },
+
+  getTags: async (req, res) => {
+    const tags = await Tag.findAll();
+    res.json(tags);
+  },
+
 };
 
 module.exports = quizController;
