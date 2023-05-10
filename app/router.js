@@ -8,7 +8,8 @@ const router = express.Router();
 
 router.get('/quiz', quizController.getAllQuizzes);
 router.get('/quiz/:id', quizController.getOneQuiz);
-router.get('/tag', quizController.getQuizzesByTag);
+router.get('/tag', quizController.getTags);
+router.get('/tag/:name', quizController.getQuizzesByTag);
 router.get('/profile/history', userController.getUserHistory);
 router.get('/profile/favorites', userController.getUserFavorites);
 
