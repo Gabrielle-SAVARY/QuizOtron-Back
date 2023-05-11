@@ -108,8 +108,12 @@ const authController = {
           return res.status(400).json("Vos identifiants de connexion ne correspondent à aucun compte sur notre système");
         }
 
-        // On renvoie le token au client
+        // On renvoie les données de l'utilisateur et le token au client
         res.json({
+          logged: true,
+          pseudo: user.pseudo,
+          firstname: user.firstname,
+          lastname: user.lastname,
           token: getToken(user),
         })
 

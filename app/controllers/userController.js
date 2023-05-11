@@ -43,12 +43,42 @@ const userController = {
   getUserInfos: async (req, res) => {
     const { pseudo } = req.user;
 
-    const user = await User.findOne({
-      where: {
-        pseudo: pseudo
-      }
-    });
-    res.json(user);
+    try {
+      const user = await User.findOne({
+        where: {
+          pseudo: pseudo
+        }
+      });
+
+      res.json(user);
+
+    } catch (error) {
+      console.log(error);
+    }
+
+  },
+
+  deleteUser: async (req, res) => {
+    const { pseudo } = req.user;
+
+    try {
+      const user = await User.findOne({
+        where: {
+          pseudo: pseudo
+        }
+      });
+
+      await user.destroy();
+
+      console.log("Votre compte a bien été supprimé");
+
+      res.json({
+        message: "Votre compte a bien été supprimé!"
+      });
+
+    } catch (error) {
+      console.log(error);
+    }
   }
 };
 
