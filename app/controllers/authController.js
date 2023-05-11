@@ -2,6 +2,7 @@ const emailValidator = require("email-validator");
 const bcrypt = require("bcrypt");
 const { User } = require("../models");
 const { Op } = require("sequelize");
+const { getToken } = require("../middlewares/jwt");
 
 const authController = {
     register: async (req, res) => {
@@ -107,8 +108,10 @@ const authController = {
           return res.status(400).json("Vos identifiants de connexion ne correspondent à aucun compte sur notre système");
         }
 
-        // On redirige l'utilisateur vers la page d'accueil une fois connecté
-        res.redirect('/');
+        // On renvoie le token au client
+        res.json({
+          token: getToken(user),
+        })
 
       } catch (error) {
         res.status(500).json(error);
