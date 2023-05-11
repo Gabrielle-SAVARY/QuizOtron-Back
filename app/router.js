@@ -13,8 +13,10 @@ router.get('/tag', quizController.getTags);
 router.get('/tag/:name', quizController.getQuizzesByTag);
 router.get('/level', quizController.getLevels);
 router.get('/level/:name', quizController.getQuizzesByLevel);
+router.get('/profile', checkToken, userController.getUserInfos);
 router.get('/profile/history', checkToken, userController.getUserHistory);
 router.get('/profile/favorites', checkToken, userController.getUserFavorites);
+
 
 router.post('/signup', authController.register);
 router.post('/login', authController.login);
