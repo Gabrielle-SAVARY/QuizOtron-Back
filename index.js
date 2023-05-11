@@ -12,8 +12,23 @@ const PORT = process.env.PORT || 3000;
 
 /* ---------- Middlewares ---------- */
 app.use(bodyParser.json());
-app.use(router);
 
+// CORS
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Accept, Authorization');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+
+  // response to preflight request
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200);
+  }
+  else {
+    next();
+  }
+});
+
+app.use(router);
 /* ---------- App ---------- */
 
 app.listen(PORT, () => {
