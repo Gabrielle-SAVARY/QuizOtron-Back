@@ -2,6 +2,7 @@ const { Quiz, Tag, Level } = require("../models");
 const { Op } = require("sequelize");
 
 const quizController = {
+  // Récupérer tous les quiz
   getAllQuizzes: async (req, res) => {
     try {
       const quizzes = await Quiz.findAll({
@@ -20,92 +21,126 @@ const quizController = {
           },
         ]
       });
+
       res.json(quizzes);
+
     } catch (error) {
       console.log(error);
-      res.status(500);
-      res.send(error);
+      res.status(500).send(error);
     }
   },
 
+  // Récupérer un quiz par son id
   getOneQuiz: async (req, res) => {
-    const quiz = await Quiz.findByPk(req.params.id, {
-      include: [
-        {
-          association: 'level',
-          attributes: ['name']
-        },
-        {
-          association: 'author',
-          attributes: ['pseudo']
-        },
-        {
-          association: 'tags',
-          attributes: ['name']
-        },
-        {
-          association: 'questions',
-          include: [
-            {association: 'answers'},
-            {association: 'good_answer'}
-          ]
-        }
-      ]
-    });
-    res.json(quiz);
+    try {
+      const quiz = await Quiz.findByPk(req.params.id, {
+        include: [
+          {
+            association: 'level',
+            attributes: ['name']
+          },
+          {
+            association: 'author',
+            attributes: ['pseudo']
+          },
+          {
+            association: 'tags',
+            attributes: ['name']
+          },
+          {
+            association: 'questions',
+            include: [
+              {association: 'answers'},
+              {association: 'good_answer'}
+            ]
+          }
+        ]
+      });
+
+      res.json(quiz);
+
+    } catch (error) {
+      res.status(500).send(error);
+    }
   },
 
+  // Récupérer tous les tags
   getTags: async (req, res) => {
-    const tags = await Tag.findAll();
-    res.json(tags);
+    try {
+      const tags = await Tag.findAll();
+
+      res.json(tags);
+
+    } catch (error) {
+      res.status(500).send(error);
+    }
   },
 
+  // Récupérer tous les quiz par tag
   getQuizzesByTag: async (req, res) => {
     const tagName = req.params.name;
 
-    const tags = await Tag.findAll({
-      where: {name: {
-        [Op.iLike]: tagName
-      }},
-      include: [
-        {
-          association: 'quizzes', include: [
-            {association: 'level'},
-            {association: 'author'},
-            {association: 'tags'},
-          ]
-        }
-      ]
-    });
-    res.json(tags);
+    try {
+      const tags = await Tag.findAll({
+        where: {name: {
+          [Op.iLike]: tagName
+        }},
+        include: [
+          {
+            association: 'quizzes', include: [
+              {association: 'level'},
+              {association: 'author'},
+              {association: 'tags'},
+            ]
+          }
+        ]
+      });
+
+      res.json(tags);
+
+    } catch (error) {
+      res.status(500).send(error);
+    }
   },
 
+  // Récupérer tous les niveaux
   getLevels: async (req, res) => {
-    const levels = await Level.findAll();
-    res.json(levels);
+    try {
+      const levels = await Level.findAll();
+
+      res.json(levels);
+
+    } catch (error) {
+      res.status(500).send(error);
+    }
   },
 
+  // Récupérer tous les quiz par niveau
   getQuizzesByLevel: async (req, res) => {
     const levelName = req.params.name;
 
-    const levels = await Level.findAll({
-      where: {name: {
-        [Op.iLike]: levelName
-      }},
-      include: [
-        {
-          association: 'quizzes', include: [
-            {association: 'level'},
-            {association: 'author'},
-            {association: 'tags'},
-          ]
-        }
-      ]
-    });
+    try {
+      const levels = await Level.findAll({
+        where: {name: {
+          [Op.iLike]: levelName
+        }},
+        include: [
+          {
+            association: 'quizzes', include: [
+              {association: 'level'},
+              {association: 'author'},
+              {association: 'tags'},
+            ]
+          }
+        ]
+      });
+  
+      res.json(levels);
 
-    res.json(levels);
+    } catch (error) {
+      res.status(500).send(error);
+    }
   },
-
 };
 
 module.exports = quizController;
