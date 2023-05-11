@@ -16,7 +16,8 @@ INSERT INTO "user" ("id", "email", "pseudo", "firstname", "lastname", "password"
 (1, 'sami@gmail.com' , 'sami-dev', 'Sami', 'BEN ABDALLAH', 'test', 1000001, 2),
 (2, 'romain@gmail.com', 'romain-dev', 'Romain', 'ANDINÉ', 'test', 1000000, 2),
 (3, 'gabrielle@gmail.com', 'gabrielle-dev', 'Gabrielle', 'SAVARY', 'test', 1000000, 2),
-(4, 'michel@gmail.com', 'el-famoso', 'Michel', 'MICHOU', 'testmichel', 900, 1);
+(4, 'michel@gmail.com', 'el-famoso', 'Michel', 'MICHOU', 'testmichel', 900, 1),
+(5, 'elon@gmail.com', 'elon-musk', 'Elon', 'MUSK', '$2b$10$cEJfuFnHidw5syvXuKknMuN5mkR5OsZycc3MoD1OKriZCzVi0CEPm', 100, 1);
 
 -- Données de la table "level"
 INSERT INTO "level" ("id", "name") VALUES
