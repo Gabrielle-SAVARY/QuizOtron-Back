@@ -16,6 +16,7 @@ router.get('/level/:name', quizController.getQuizzesByLevel);
 router.get('/profile', checkToken, userController.getUserInfos);
 router.get('/profile/history', checkToken, userController.getUserHistory);
 router.get('/profile/favorites', checkToken, userController.getUserFavorites);
+router.patch('/profile/settings/update', checkToken, userController.updateUser);
 router.delete('/profile/settings/delete', checkToken, userController.deleteUser);
 
 
