@@ -87,7 +87,7 @@ const authController = {
       }
 
       try {
-        const user = await User.findOne({
+        const user = await User.scope('withPassword').findOne({
           where: {
             email: {
               [Op.iLike]: email,

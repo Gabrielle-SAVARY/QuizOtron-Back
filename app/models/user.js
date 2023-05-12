@@ -30,6 +30,16 @@ User.init({
     type: DataTypes.INTEGER,
   }
 },{
+  defaultScope: {
+    attributes: { 
+      exclude: ["password"]
+    }
+  },
+  scopes: {
+    withPassword: {
+      attributes: {}
+    }
+  },
   sequelize,
   tableName: "user"
 });
