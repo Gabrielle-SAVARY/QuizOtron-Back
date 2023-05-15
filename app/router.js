@@ -3,7 +3,9 @@ const authController = require('./controllers/authController');
 // const mainController = require('./controllers/mainController');
 const quizController = require('./controllers/quizController');
 const userController = require('./controllers/userController');
+const isValid = require('./middlewares/isValid');
 const { checkToken } = require('./middlewares/jwt');
+const schema = require('./validators/signup');
 
 const router = express.Router();
 
@@ -20,6 +22,6 @@ router.patch('/profile/settings/update', checkToken, userController.updateUser);
 router.delete('/profile/settings/delete', checkToken, userController.deleteUser);
 
 
-router.post('/signup', authController.register);
+router.post('/signup', isValid(schema.signupSchema), authController.register);
 router.post('/login', authController.login);
 module.exports = router;
