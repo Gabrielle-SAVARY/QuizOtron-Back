@@ -28,4 +28,5 @@ router.delete('/profile/settings/delete', checkToken, userController.deleteUser)
 
 router.post('/signup', isValid(signup.signupSchema), authController.register);
 router.post('/login', isValid(login.loginSchema), authController.login);
+
 module.exports = router;
