@@ -50,8 +50,9 @@ const authController = {
 
       try {
         await User.create(newUser);
-        res.json({
+        res.status(201).json({
           message: "Votre compte a bien été créé",
+          registered: true,
         });
       } catch (error) {
         res.status(500).json(error);
