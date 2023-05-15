@@ -7,6 +7,7 @@ const isValid = require('./middlewares/isValid');
 const { checkToken } = require('./middlewares/jwt');
 const signup = require('./validators/signup');
 const login = require('./validators/login');
+const userUpdate = require('./validators/updateUser');
 
 const router = express.Router();
 
@@ -22,7 +23,7 @@ router.get('/level/:name', quizController.getQuizzesByLevel);
 router.get('/profile', checkToken, userController.getUserInfos);
 router.get('/profile/history', checkToken, userController.getUserHistory);
 router.get('/profile/favorites', checkToken, userController.getUserFavorites);
-router.patch('/profile/settings/update', checkToken, userController.updateUser);
+router.patch('/profile/settings/update', [isValid(userUpdate.updateUserSchema), checkToken], userController.updateUser);
 router.delete('/profile/settings/delete', checkToken, userController.deleteUser);
 
 router.post('/signup', isValid(signup.signupSchema), authController.register);
