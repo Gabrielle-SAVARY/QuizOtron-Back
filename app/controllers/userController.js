@@ -1,5 +1,6 @@
 const { User } = require("../models");
 const Score = require("../models/score");
+const bcrypt = require("bcrypt");
 
 const userController = {
   getUserHistory : async (req, res) => {
@@ -79,7 +80,48 @@ const userController = {
     } catch (error) {
       console.log(error);
     }
-  }
+  },
+
+  updateUser: async (req, res) => {
+    const { id } = req.user;
+
+    try {
+      const user = await User.scope('withPassword').findOne({
+        where: {
+          id: id
+        }
+      });
+
+      console.log(user);
+      console.log('req.user: ', req.user);
+
+      let newUser = req.body;
+
+      // Si l'utilisateur a renseigné un ancien mot de passe, on vérifie qu'il correspond à celui en base de données
+      // Et ensuite on hash le nouveau mot de passe
+      // TODO: A revoir
+      if (newUser.oldPassword && newUser.password || newUser.password) {
+        const match = await bcrypt.compare(newUser.oldPassword, user.password);
+
+        if (!match) {
+          return res.status(400).json("Le mot de passe est incorrect");
+        }
+  
+        const hash = bcrypt.hashSync(newUser.password, 10);
+
+        newUser.password = hash;
+      }
+      console.log('newUser: ', newUser);
+
+      await user.update(newUser);
+      res.json({
+        message: "Votre compte a bien été mis à jour!"
+      });
+
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
 
 module.exports = userController;
