@@ -60,6 +60,7 @@ const userController = {
   },
 
   deleteUser: async (req, res) => {
+
     const { pseudo } = req.user;
 
     try {
@@ -68,6 +69,8 @@ const userController = {
           pseudo: pseudo
         }
       });
+
+      console.log('Utilisateur trouvé: ', JSON.stringify(user, null, 4));
 
       await user.destroy();
 
