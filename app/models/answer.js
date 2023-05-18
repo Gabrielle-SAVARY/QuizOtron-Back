@@ -7,6 +7,10 @@ Answer.init({
   description: {
     type: DataTypes.TEXT,
     allowNull: false,
+  },
+  is_valid: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
   }
 },{
   sequelize,

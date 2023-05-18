@@ -5,6 +5,7 @@ const User = require('./user');
 const Role = require('./role');
 const Level = require('./level');
 const Quiz = require('./quiz');
+const Score = require('./score');
 
 // relation entre les questions et les réponses
 Question.hasMany(Answer, {
@@ -17,21 +18,6 @@ Answer.belongsTo(Question, {
   as: 'question',
 });
 
-Question.belongsTo(Answer, {
-  foreignKey: 'answer_id',
-  as: 'good_answer',
-});
-
-// relation entre les niveaux et les questions
-Level.hasMany(Question, {
-  foreignKey: 'level_id',
-  as: 'questions',
-});
-
-Question.belongsTo(Level, {
-  foreignKey: 'level_id',
-  as: 'level',
-});
 
 // relation entre les niveaux et les quiz
 Level.hasMany(Quiz, {
@@ -109,17 +95,45 @@ User.belongsToMany(Quiz, {
 
 // relation entre les utilisateurs et les scores obtenus aux quiz
 Quiz.belongsToMany(User, {
-  as: 'scores',
+  as: 'user_scores',
   through: 'score',
   foreignKey: 'quiz_id',
   otherKey: 'user_id',
 });
 
 User.belongsToMany(Quiz, {
-  as: 'scores',
+  as: 'quizzes_scores',
   through: 'score',
   foreignKey: 'user_id',
   otherKey: 'quiz_id',
 });
 
-module.exports = { Answer, Question, Tag, User, Role, Level, Quiz };
+Score.belongsToMany(User, {
+  as: 'testscore',
+  through: 'score',
+  foreignKey: 'quiz_id',
+  otherKey: 'user_id',
+});
+
+User.belongsToMany(Score, {
+  as: 'testing',
+  through: 'score',
+  foreignKey: 'user_id',
+  otherKey: 'quiz_id',
+});
+
+Score.belongsToMany(Quiz, {
+  as: 'quiz_scores',
+  through: 'score',
+  foreignKey: 'user_id',
+  otherKey: 'quiz_id',
+});
+
+Quiz.belongsToMany(Score, {
+  as: 'test', 
+  through: 'score',
+  foreignKey: 'quiz_id',
+  otherKey: 'user_id',
+})
+
+module.exports = { Answer, Question, Tag, User, Role, Level, Quiz, Score };
