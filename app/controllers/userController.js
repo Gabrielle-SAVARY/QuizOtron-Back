@@ -62,6 +62,7 @@ const userController = {
   deleteUser: async (req, res) => {
 
     const { pseudo } = req.user;
+    console.log('req.user: ', req.user);
 
     try {
       const user = await User.findOne({
