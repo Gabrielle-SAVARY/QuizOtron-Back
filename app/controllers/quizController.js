@@ -145,7 +145,7 @@ const quizController = {
   createQuiz: async (req, res) => {
     try {
       // On récupère les données du quiz
-      const { title, description, thumbnail, level_id, user_id } = req.body.quiz;
+      const { title, description, thumbnail, level_id, user_id, tag_id } = req.body.quiz;
       console.log('quiz', req.body.quiz);
 
       // On attribue les données du quiz à un objet newQuiz
@@ -160,6 +160,12 @@ const quizController = {
       // On crée le quiz en bdd
       const quiz = await Quiz.create(newQuiz);
       console.log('quiz', quiz.id);
+
+      const tag = await Tag.findByPk(tag_id);
+      console.log('tag', JSON.stringify(tag, null, 2));
+
+      // On associe le tag au quiz
+      await quiz.addTag(tag);
 
       // On récupère les données des questions et des réponses
       const questionsWithAnswers = req.body.questions;
@@ -194,7 +200,7 @@ const quizController = {
       res.json({
         message: "Le quiz a bien été créé",
       });
-      
+
     } catch (error) {
       res.status(500).send(error);
       console.log(error);
