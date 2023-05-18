@@ -4,7 +4,7 @@ const sequelize = require('../database');
 class Answer extends Model {}
 
 Answer.init({
-  description: {
+  answer: {
     type: DataTypes.TEXT,
     allowNull: false,
   },

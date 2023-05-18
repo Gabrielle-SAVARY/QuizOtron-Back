@@ -74,7 +74,7 @@ INSERT INTO "question" ("id", "question", "quiz_id") VALUES
 (30, 'Dans quel pays se trouve la ville de Marrakech ?', 3);
 
 -- Données de la table "answer"
-INSERT INTO "answer" ("id", "description", "is_valid", "question_id") VALUES
+INSERT INTO "answer" ("id", "answer", "is_valid", "question_id") VALUES
 -- réponses Connaissances cinématographiques
 (1, 'Rambo', 'false', 1),
 (2, 'Terminator', 'true', 1),
