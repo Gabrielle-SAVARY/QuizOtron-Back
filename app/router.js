@@ -24,6 +24,7 @@ router.get('/level', quizController.getLevels);
 router.get('/level/:name', quizController.getQuizzesByLevel);
 
 router.get('/profile', checkToken, userController.getUserInfos);
+router.get('/profile/quiz', checkToken, userController.getUserQuizzes);
 router.get('/profile/history', checkToken, userController.getUserHistory);
 router.get('/profile/favorites', checkToken, userController.getUserFavorites);
 router.patch('/profile/settings/update', [isValid(userUpdate.updateUserSchema), checkToken], userController.updateUser);
