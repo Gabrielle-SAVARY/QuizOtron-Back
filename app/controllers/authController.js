@@ -88,6 +88,7 @@ const authController = {
         // On renvoie les données de l'utilisateur et le token au client
         res.json({
           logged: true,
+          id: user.id,
           pseudo: user.pseudo,
           firstname: user.firstname,
           lastname: user.lastname,
