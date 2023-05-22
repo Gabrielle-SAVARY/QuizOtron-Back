@@ -206,6 +206,26 @@ const quizController = {
       console.log(error);
     }
   },
+
+  deleteQuiz: async (req, res) => {
+    const quizId = req.params.id;
+    console.log('quizId', quizId);
+
+    try {
+
+      const quiz = await Quiz.findByPk(quizId);
+      console.log('quiz', JSON.stringify(quiz, null, 2));
+
+      // Suppression du quiz
+      await quiz.destroy();
+
+      res.json({
+        message: "Le quiz a bien été supprimé",
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  },
 };
 
 module.exports = quizController;
