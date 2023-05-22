@@ -1,6 +1,7 @@
 -- Database for Quiz'O'tron
 
 BEGIN;
+set client_encoding to 'utf8';
 
 -- Pour éviter les erreurs de contraintes lors de l'insertion de données (les tables answer et question sont liées dans les deux sens), on supprime la contrainte de clé étrangère qui référence la table "question"
 -- ALTER TABLE "answer"
