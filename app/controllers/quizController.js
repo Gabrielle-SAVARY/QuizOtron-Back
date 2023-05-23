@@ -257,8 +257,12 @@ const quizController = {
       const tag = await Tag.findByPk(tag_id);
       // console.log('tag', JSON.stringify(tag, null, 2));
 
-      // On associe le tag au quiz
-      // await quiz.updateTag(tag);
+      // Retirer l'ancien tag de la table de relation
+      await foundQuiz.removeTags(foundQuiz.Tags);
+      
+      // Associer le nouveau tag au quiz
+      await foundQuiz.setTags([tag]);
+
 
       // On récupère les données des questions et des réponses
       const questionsWithAnswers = req.body.questions;
