@@ -34,6 +34,9 @@ const quizController = {
   getOneQuiz: async (req, res) => {
     try {
       const quiz = await Quiz.findByPk(req.params.id, {
+        order: [
+          [{ model: Question, as: 'questions' }, { model: Answer, as: 'answers' }, 'id', 'asc']
+        ],
         include: [
           {
             association: 'level',
@@ -48,10 +51,12 @@ const quizController = {
             attributes: ['name']
           },
           {
-            association: 'questions',
+            model:Question, as : "questions",
             include: [
               {association: 'answers'}
-            ]
+            ],
+
+          
           }
         ]
       });
