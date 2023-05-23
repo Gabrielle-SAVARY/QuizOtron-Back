@@ -34,6 +34,9 @@ const quizController = {
   getOneQuiz: async (req, res) => {
     try {
       const quiz = await Quiz.findByPk(req.params.id, {
+        order: [
+          [{ model: Question, as: 'questions' }, { model: Answer, as: 'answers' }, 'id', 'asc']
+        ],
         include: [
           {
             association: 'level',
@@ -48,10 +51,12 @@ const quizController = {
             attributes: ['name']
           },
           {
-            association: 'questions',
+            model:Question, as : "questions",
             include: [
               {association: 'answers'}
-            ]
+            ],
+
+          
           }
         ]
       });
@@ -222,6 +227,85 @@ const quizController = {
       res.json({
         message: "Le quiz a bien été supprimé",
       });
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  updateQuiz: async (req, res) => {
+    const quizId = req.params.id;
+    const foundQuiz = await Quiz.findByPk(quizId);
+    // console.log('foundQuiz', JSON.stringify(foundQuiz, null, 2));
+
+    try {
+      // On récupère les données du quiz
+      const { title, description, thumbnail, level_id, user_id, tag_id } = req.body.quiz;
+      // console.log('quiz', req.body.quiz);
+
+      // On attribue les données du quiz à un objet updatedQuiz
+      const updatedQuiz = {
+        title: title,
+        description: description,
+        thumbnail: thumbnail,
+        level_id: level_id,
+        user_id: user_id,
+      };
+
+      // On modifie le quiz en bdd
+      const quiz = await Quiz.update(updatedQuiz, {
+        where: {
+          id: foundQuiz.id,
+        },
+      });
+      // console.log('quiz', JSON.stringify(quiz, null, 2));
+
+      const tag = await Tag.findByPk(tag_id);
+      // console.log('tag', JSON.stringify(tag, null, 2));
+
+      // Retirer l'ancien tag de la table de relation
+      await foundQuiz.removeTags(foundQuiz.Tags);
+      
+      // Associer le nouveau tag au quiz
+      await foundQuiz.setTags([tag]);
+
+
+      // On récupère les données des questions et des réponses
+      const questionsWithAnswers = req.body.questions;
+      // console.log('questions avant le map', questionsWithAnswers);
+
+      for (const questionData of questionsWithAnswers) {
+        const { question, answers } = questionData;
+  
+        // Recherche de la question à mettre à jour
+        const [existingQuestion] = await Question.findAll({
+          where: { id: questionData.id },
+        });
+  
+        // console.log('existingQuestion', JSON.stringify(existingQuestion, null, 2));
+        // Mise à jour de la question existante
+        if (existingQuestion) {
+          await existingQuestion.update({ question: question });
+        }
+        
+        for (const answerData of answers) {
+          const { id, answer, is_valid } = answerData;
+
+          const existingAnswer = await Answer.findByPk(id);
+          // console.log('answer', JSON.stringify(answerData, null, 2));
+          console.log('answerData', JSON.stringify(existingAnswer, null, 2));
+
+            await existingAnswer.update({
+              answer: answer,
+              is_valid: is_valid,
+            });
+        }
+      }
+
+
+      res.json({
+        message: "Le quiz a bien été modifié",
+      });
+      
     } catch (error) {
       console.log(error);
     }

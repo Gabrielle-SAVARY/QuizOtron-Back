@@ -14,6 +14,7 @@ const router = express.Router();
 router.get('/quiz', quizController.getAllQuizzes);
 router.get('/quiz/:id', quizController.getOneQuiz);
 router.post('/quiz/user/create',  quizController.createQuiz);
+router.patch('/quiz/user/update/:id', quizController.updateQuiz);
 router.delete('/quiz/user/delete/:id', quizController.deleteQuiz);
 
 router.get('/tag', quizController.getTags);
@@ -23,6 +24,7 @@ router.get('/level', quizController.getLevels);
 router.get('/level/:name', quizController.getQuizzesByLevel);
 
 router.get('/profile', checkToken, userController.getUserInfos);
+router.get('/profile/quiz', checkToken, userController.getUserQuizzes);
 router.get('/profile/history', checkToken, userController.getUserHistory);
 router.get('/profile/favorites', checkToken, userController.getUserFavorites);
 router.patch('/profile/settings/update', [isValid(userUpdate.updateUserSchema), checkToken], userController.updateUser);

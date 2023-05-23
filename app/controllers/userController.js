@@ -59,6 +59,28 @@ const userController = {
 
   },
 
+  getUserQuizzes: async (req, res) => {
+    const { id } = req.user;
+
+    try {
+      const userQuizzes = await User.findOne({
+        where: {
+          id: id
+        },
+
+        include: [
+          {
+            association: 'quizzes',
+          }
+        ]
+      });
+
+      res.json(userQuizzes);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
   deleteUser: async (req, res) => {
 
     const { pseudo } = req.user;
