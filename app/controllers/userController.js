@@ -1,30 +1,23 @@
 const { User } = require("../models");
-const Score = require("../models/score");
 const bcrypt = require("bcrypt");
 
 const userController = {
   getUserHistory : async (req, res) => {
-    // const favorites = await User.findByPk(1, {
-    //   include: [
-    //     {
-    //       association: 'favorites',
-    //     }
-    //   ]
-    // });
+    const { id } = req.user;
+    console.log('req.user: ', req.user);
 
-    // res.json(favorites);
-
-    const history = await Score.findAll({
-      where: {
-        user_id: 1
-      },
+    const history = await User.findByPk(id, {
       include: [
+
         {
-          association: 'quiz_scores',
+          association: 'quizzes_scores',
+          through: {
+            attributes: ['quiz_score']
+          }
         }
       ]
     });
-    
+
     res.json(history);
   },
 
