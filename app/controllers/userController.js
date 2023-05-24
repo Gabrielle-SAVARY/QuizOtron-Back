@@ -1,4 +1,4 @@
-const { User } = require("../models");
+const { User, Quiz } = require("../models");
 const bcrypt = require("bcrypt");
 
 const userController = {
@@ -32,6 +32,25 @@ const userController = {
     });
 
     res.json(favorites);
+  },
+
+  addFavorite: async (req, res) => {
+    const { id } = req.user;
+    const { quiz_id } = req.body;
+
+    try {
+      const user = await User.findByPk(id);
+      const quiz = await Quiz.findByPk(quiz_id);
+
+      await user.addFavorite(quiz);
+
+      res.json({
+        message: "Le quiz a bien été ajouté à vos favoris!"
+      });
+
+    } catch (error) {
+      console.log(error);
+    }
   },
 
   getUserInfos: async (req, res) => {
