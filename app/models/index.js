@@ -5,7 +5,6 @@ const User = require('./user');
 const Role = require('./role');
 const Level = require('./level');
 const Quiz = require('./quiz');
-const Score = require('./score');
 
 // relation entre les questions et les réponses
 Question.hasMany(Answer, {
@@ -108,32 +107,4 @@ User.belongsToMany(Quiz, {
   otherKey: 'quiz_id',
 });
 
-Score.belongsToMany(User, {
-  as: 'testscore',
-  through: 'score',
-  foreignKey: 'quiz_id',
-  otherKey: 'user_id',
-});
-
-User.belongsToMany(Score, {
-  as: 'testing',
-  through: 'score',
-  foreignKey: 'user_id',
-  otherKey: 'quiz_id',
-});
-
-Score.belongsToMany(Quiz, {
-  as: 'quiz_scores',
-  through: 'score',
-  foreignKey: 'user_id',
-  otherKey: 'quiz_id',
-});
-
-Quiz.belongsToMany(Score, {
-  as: 'test', 
-  through: 'score',
-  foreignKey: 'quiz_id',
-  otherKey: 'user_id',
-})
-
-module.exports = { Answer, Question, Tag, User, Role, Level, Quiz, Score };
+module.exports = { Answer, Question, Tag, User, Role, Level, Quiz };
