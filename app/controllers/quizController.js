@@ -252,7 +252,7 @@ const quizController = {
       };
 
       // On modifie le quiz en bdd
-      const quiz = await Quiz.update(updatedQuiz, {
+      await Quiz.update(updatedQuiz, {
         where: {
           id: foundQuiz.id,
         },
@@ -273,6 +273,7 @@ const quizController = {
       const questionsWithAnswers = req.body.questions;
       // console.log('questions avant le map', questionsWithAnswers);
 
+      if (questionsWithAnswers) {
       for (const questionData of questionsWithAnswers) {
         const { question, answers } = questionData;
   
@@ -300,6 +301,7 @@ const quizController = {
             });
         }
       }
+    }
 
 
       res.json({

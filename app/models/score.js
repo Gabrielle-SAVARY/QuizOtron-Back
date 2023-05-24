@@ -4,7 +4,7 @@ const sequelize = require('../database');
 class Score extends Model {}
 
 Score.init({
-  score: {
+  quiz_score: {
     type: DataTypes.INTEGER,
     allowNull: false,
   }
