@@ -13,9 +13,9 @@ const router = express.Router();
 
 router.get('/quiz', quizController.getAllQuizzes);
 router.get('/quiz/:id', quizController.getOneQuiz);
-router.post('/quiz/user/create',  quizController.createQuiz);
-router.patch('/quiz/user/update/:id', quizController.updateQuiz);
-router.delete('/quiz/user/delete/:id', quizController.deleteQuiz);
+router.post('/quiz/user/create', checkToken, quizController.createQuiz);
+router.patch('/quiz/user/update/:id', checkToken, quizController.updateQuiz);
+router.delete('/quiz/user/delete/:id', checkToken, quizController.deleteQuiz);
 
 router.get('/tag', quizController.getTags);
 router.get('/tag/:name', quizController.getQuizzesByTag);
