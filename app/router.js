@@ -30,6 +30,7 @@ router.get('/profile/quiz', checkToken, userController.getUserQuizzes);
 router.get('/profile/history', checkToken, userController.getUserHistory);
 router.get('/profile/favorites', checkToken, userController.getUserFavorites);
 router.post('/profile/favorites/add', checkToken, userController.addFavorite);
+router.delete('/profile/favorites/delete', checkToken, userController.deleteFavorite);
 router.patch('/profile/settings/update', [isValid(userUpdate.updateUserSchema), checkToken], userController.updateUser);
 router.delete('/profile/settings/delete', checkToken, userController.deleteUser);
 
