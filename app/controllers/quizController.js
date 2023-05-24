@@ -273,6 +273,7 @@ const quizController = {
       const questionsWithAnswers = req.body.questions;
       // console.log('questions avant le map', questionsWithAnswers);
 
+      if (questionsWithAnswers) {
       for (const questionData of questionsWithAnswers) {
         const { question, answers } = questionData;
   
@@ -300,6 +301,7 @@ const quizController = {
             });
         }
       }
+    }
 
 
       res.json({
