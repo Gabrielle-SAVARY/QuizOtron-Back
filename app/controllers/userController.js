@@ -53,6 +53,25 @@ const userController = {
     }
   },
 
+  deleteFavorite: async (req, res) => {
+    const { id } = req.user;
+    const { quiz_id } = req.body;
+
+    try {
+      const user = await User.findByPk(id);
+      const quiz = await Quiz.findByPk(quiz_id);
+
+      await user.removeFavorite(quiz);
+
+      res.json({
+        message: "Le quiz a bien été supprimé de vos favoris!"
+      });
+
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
   getUserInfos: async (req, res) => {
     const { pseudo } = req.user;
 
