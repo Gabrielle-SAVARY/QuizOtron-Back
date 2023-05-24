@@ -8,12 +8,13 @@ const { checkToken } = require('./middlewares/jwt');
 const signup = require('./validators/signup');
 const login = require('./validators/login');
 const userUpdate = require('./validators/updateUser');
+const createQuiz = require('./validators/createQuiz');
 
 const router = express.Router();
 
 router.get('/quiz', quizController.getAllQuizzes);
 router.get('/quiz/:id', quizController.getOneQuiz);
-router.post('/quiz/user/create', checkToken, quizController.createQuiz);
+router.post('/quiz/user/create', [isValid(createQuiz.createQuizSchema), checkToken], quizController.createQuiz);
 router.patch('/quiz/user/update/:id', checkToken, quizController.updateQuiz);
 router.delete('/quiz/user/delete/:id', checkToken, quizController.deleteQuiz);
 

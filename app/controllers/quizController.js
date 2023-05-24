@@ -252,7 +252,7 @@ const quizController = {
       };
 
       // On modifie le quiz en bdd
-      const quiz = await Quiz.update(updatedQuiz, {
+      await Quiz.update(updatedQuiz, {
         where: {
           id: foundQuiz.id,
         },
