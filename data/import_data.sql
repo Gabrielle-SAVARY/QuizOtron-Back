@@ -14,10 +14,10 @@ INSERT INTO "role" ("id", "label") VALUES
 
 -- Données de la table "user"
 INSERT INTO "user" ("id", "email", "pseudo", "firstname", "lastname", "password", "global_score", "role_id") VALUES
-(1, 'sami@gmail.com' , 'sami-dev', 'Sami', 'BEN ABDALLAH', 'test', 1000001, 2),
-(2, 'romain@gmail.com', 'romain-dev', 'Romain', 'ANDINÉ', 'test', 1000000, 2),
-(3, 'gabrielle@gmail.com', 'gabrielle-dev', 'Gabrielle', 'SAVARY', 'test', 1000000, 2),
-(4, 'michel@gmail.com', 'el-famoso', 'Michel', 'MICHOU', 'testmichel', 900, 1),
+(1, 'sami@gmail.com' , 'sami-dev', 'Sami', 'BEN ABDALLAH', '$2b$10$s4dXZRpF2i4cOkN4LX7cCeI1Bw06BoK1tdv/tN9XBbdcLmXkSsHCi', 1000001, 2),
+(2, 'romain@gmail.com', 'romain-dev', 'Romain', 'ANDINÉ', '$2b$10$s4dXZRpF2i4cOkN4LX7cCeI1Bw06BoK1tdv/tN9XBbdcLmXkSsHCi', 1000000, 2),
+(3, 'gabrielle@gmail.com', 'gabrielle-dev', 'Gabrielle', 'SAVARY', '$2b$10$s4dXZRpF2i4cOkN4LX7cCeI1Bw06BoK1tdv/tN9XBbdcLmXkSsHCi', 1000000, 2),
+(4, 'michel@gmail.com', 'el-famoso', 'Michel', 'MICHOU', '$2b$10$s4dXZRpF2i4cOkN4LX7cCeI1Bw06BoK1tdv/tN9XBbdcLmXkSsHCi', 900, 1),
 (5, 'elon@gmail.com', 'elon-musk', 'Elon', 'MUSK', '$2b$10$cEJfuFnHidw5syvXuKknMuN5mkR5OsZycc3MoD1OKriZCzVi0CEPm', 100, 1);
 
 -- Données de la table "level"
@@ -219,7 +219,7 @@ INSERT INTO "favorite" ("user_id", "quiz_id") VALUES
 (3, 2);
 
 -- Données de la table de liaison "score"
-INSERT INTO "score" ("score", "user_id", "quiz_id") VALUES
+INSERT INTO "score" ("quiz_score", "user_id", "quiz_id") VALUES
 (10, 1, 1),
 (4, 1, 3),
 (7, 1, 2),
