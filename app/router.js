@@ -1,4 +1,6 @@
 const express = require('express');
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsDoc = require('swagger-jsdoc');
 const authController = require('./controllers/authController');
 // const mainController = require('./controllers/mainController');
 const quizController = require('./controllers/quizController');
@@ -12,6 +14,29 @@ const createQuiz = require('./validators/createQuiz');
 const updateQuiz = require('./validators/updateQuiz');
 
 const router = express.Router();
+
+// router.use('/api-docs', swaggerUi.serve);
+// router.get('/api-docs', swaggerUi.setup(swaggerDocument));
+const options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Quiz\'O\'Tron API',
+      version: '1.0.0',
+    },
+    servers: [
+      {
+        url: 'http://localhost:3000',
+      },
+    ],
+  },
+  apis: ['./app/controllers/*.js', './app/validators/*.js', 'app/models/*.js'],
+};
+
+const swaggerDocs = swaggerJsDoc(options);
+console.log('swaggerDocs: ', swaggerDocs);
+
+router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 router.get('/quiz', quizController.getAllQuizzes);
 router.get('/quiz/:id', quizController.getOneQuiz);
