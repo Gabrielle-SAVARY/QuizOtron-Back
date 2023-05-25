@@ -1,5 +1,6 @@
 const { User, Quiz } = require("../models");
 const bcrypt = require("bcrypt");
+const Score = require("../models/score");
 
 const userController = {
   getUserHistory : async (req, res) => {
@@ -19,6 +20,27 @@ const userController = {
     });
 
     res.json(history);
+  },
+
+  addUserHistory: async (req, res) => {
+    const { id } = req.user;
+    const { quiz_id, quiz_score } = req.body;
+    console.log('quiz_score: ', quiz_score);
+
+    try {
+    // On ajoute le quiz à l'historique de l'utilisateur avec le score obtenu
+    await Score.update(
+      { quiz_score: quiz_score },
+      { where: { user_id: id, quiz_id: quiz_id } }
+    );
+
+      res.json({
+        message: "Le quiz a bien été ajouté à votre historique!"
+      });
+
+    } catch (error) {
+      console.log(error);
+    }
   },
 
   getUserFavorites: async (req, res) => {

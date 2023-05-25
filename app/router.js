@@ -28,6 +28,7 @@ router.get('/level/:name', quizController.getQuizzesByLevel);
 router.get('/profile', checkToken, userController.getUserInfos);
 router.get('/profile/quiz', checkToken, userController.getUserQuizzes);
 router.get('/profile/history', checkToken, userController.getUserHistory);
+router.post('/profile/history', checkToken, userController.addUserHistory);
 router.get('/profile/favorites', checkToken, userController.getUserFavorites);
 router.post('/profile/favorites/add', checkToken, userController.addFavorite);
 router.delete('/profile/favorites/delete', checkToken, userController.deleteFavorite);
