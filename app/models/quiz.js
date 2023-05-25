@@ -1,3 +1,24 @@
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Quiz:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *         title:
+ *           type: string
+ *         description:
+ *           type: string
+ *         thumbnail:
+ *           type: string
+ *         level_id:
+ *           type: integer
+ *         user_id:
+ *           type: integer
+ */
+
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../database');
 
