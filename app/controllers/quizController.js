@@ -48,7 +48,9 @@ const quizController = {
           },
           {
             association: 'tags',
-            attributes: ['name']
+            through: {
+              attributes: []
+            },
           },
           {
             model:Question, as : "questions",
