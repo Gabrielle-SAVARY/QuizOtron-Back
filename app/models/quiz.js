@@ -17,6 +17,13 @@
  *           type: integer
  *         user_id:
  *           type: integer
+ *       example:
+ *         id: 1
+ *         title: "Quiz 1"
+ *         description: "Quiz 1 description"
+ *         thumbnail: "https://www.google.com/url?sa=i&url"
+ *         level_id: 1
+ *         user_id: 1
  */
 
 const { DataTypes, Model } = require('sequelize');
