@@ -1,25 +1,11 @@
 /**
- * @swagger
- * components:
- *  schemas:
- *   Answer:
- *    type: object
- *    properties:
- *      id:
- *        type: integer
- *      answer:
- *        type: string
- *      is_valid:
- *        type: boolean
- *      question_id:
- *        type: integer
- *    example:
- *      id: 1
- *      answer: "La réponse est 1"
- *      is_valid: true
- *      question_id: 1
+ * Une réponse
+ * @typedef {object} Answer
+ * @property {integer} id - Identifiant unique
+ * @property {string} answer - La réponse
+ * @property {boolean} is_valid - La réponse est-elle valide ?
+ * @property {integer} question_id - Identifiant de la question
  */
-
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../database');
 
