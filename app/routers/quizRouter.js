@@ -25,7 +25,7 @@ router.get('/', quizController.getAllQuizzes);
  router.get('/:id', quizController.getOneQuiz);
 
 /**
- * POST /quiz
+ * POST /quiz/user/create
  * @summary Create a quiz
  * @tags Quiz
  * @param {Quiz} request.body.required - Quiz info
@@ -33,7 +33,24 @@ router.get('/', quizController.getAllQuizzes);
 
  */
 router.post('/user/create', [isValid(createQuiz.createQuizSchema), checkToken], quizController.createQuiz);
+
+/** 
+ * PATCH /quiz/user/update/{id}
+ * @summary Update a quiz
+ * @tags Quiz
+ * @param {string} id.path.required - Quiz id
+ * @param {Quiz} request.body.required - Quiz info
+ * @return {Quiz} 200 - success response - application/json
+*/
 router.patch('/user/update/:id', [isValid(updateQuiz.updateQuizSchema), checkToken], quizController.updateQuiz);
+
+/** 
+ * DELETE /quiz/user/delete/{id}
+ * @summary Delete a quiz
+ * @tags Quiz
+ * @param {string} id.path.required - Quiz id
+ * @return {Quiz} 200 - success response - application/json
+*/
 router.delete('/user/delete/:id', checkToken, quizController.deleteQuiz);
 
 
