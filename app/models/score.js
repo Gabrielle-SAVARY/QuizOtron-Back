@@ -1,25 +1,17 @@
 /**
- * @swagger
- * components:
- *  schemas:
- *    Score:
- *      type: object
- *      properties:
- *        id:
- *          type: integer
- *        quiz_score:
- *          type: integer
- *        user_id:
- *          type: integer
- *        quiz_id:
- *          type: integer
- *      example:
- *        id: 1
- *        quiz_score: 10
- *        user_id: 1
- *        quiz_id: 1
+ * Un Score
+ * @typedef {object} Score
+ * @property {integer} id - L'identifiant du score
+ * @property {integer} quiz_score - Le score obtenu par l'utilisateur
+ * @property {User} user - L'identifiant de l'utilisateur
+ * @property {Quiz} quiz_id - L'identifiant du quiz
+ * @example
+ * {
+ * id: 1,
+ * quiz_score: 10,
+ * user_id: 1,
+ * quiz_id: 1
  */
-
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../database');
 
