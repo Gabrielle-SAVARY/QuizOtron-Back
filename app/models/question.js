@@ -1,22 +1,11 @@
 /**
- * @swagger
- * components:
- *  schemas:
- *    Question:
- *      type: object
- *      properties:
- *        id:
- *          type: integer
- *        question:
- *          type: string
- *        quiz_id:
- *          type: integer
- *      example:
- *        id: 1
- *        question: "Quelle est la couleur du cheval blanc d'Henri IV ?"
- *        quiz_id: 1
+ * Une Question
+ * @typedef {object} Question
+ * @property {integer} id - Identifiant unique
+ * @property {string} question - La question
+ * @property {integer} quiz_id - L'identifiant du quiz
+ * @property {array<Answer>} answers - Les réponses
  */
-
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../database');
 

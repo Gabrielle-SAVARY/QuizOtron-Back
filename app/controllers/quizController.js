@@ -2,28 +2,12 @@ const { Quiz, Tag, Level, Question, Answer } = require("../models");
 const { Op } = require("sequelize");
 
 const quizController = {
-/**
- * @swagger
- * /quiz:
- *   get:
- *     summary: Récupère tous les quiz
- *     responses:
- *       200:
- *         description: Succès de la requête
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Quiz'
- */
   getAllQuizzes: async (req, res) => {
     try {
       const quizzes = await Quiz.findAll({
         include: [
           {
             association: 'level',
-            attributes: ['name']
           },
           {
             association: 'author',
@@ -31,7 +15,9 @@ const quizController = {
           },
           {
             association: 'tags',
-            attributes: ['name']
+            through: {
+            attributes: []
+            }
           },
         ]
       });

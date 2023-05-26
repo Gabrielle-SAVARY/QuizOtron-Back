@@ -1,3 +1,21 @@
+/**
+ * Un User
+ * @typedef {object} User Détails d'un utilisateur
+ * @property {integer} id Identifiant de l'utilisateur
+ * @property {string} pseudo Pseudo de l'utilisateur
+ * @property {string} email Email de l'utilisateur
+ * @property {string} firstname Prénom de l'utilisateur
+ * @property {string} lastname Nom de l'utilisateur
+ * @property {string} password Mot de passe de l'utilisateur
+ * @property {integer} global_score Score global de l'utilisateur
+ * @property {Role} role Role de l'utilisateur
+ */
+
+/**
+ * Un auteur
+ * @typedef {object} Author
+ * @property {string} pseudo - Pseudo
+ */
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../database');
 
