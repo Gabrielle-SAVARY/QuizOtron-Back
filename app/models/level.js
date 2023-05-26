@@ -1,19 +1,9 @@
 /**
- * @swagger
- * components:
- *  schemas:
- *    Level:
- *      type: object
- *      properties:
- *        id:
- *          type: integer
- *        name:
- *          type: string
- *      example:
- *        id: 1
- *        name: "facile"
+ * un level
+ * @typedef {object} Level
+ * @property {integer} id - id du level
+ * @property {string} name - nom du level
  */
-
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../database');
 
