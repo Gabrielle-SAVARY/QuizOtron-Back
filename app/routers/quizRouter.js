@@ -9,16 +9,16 @@ const updateQuiz = require('../validators/updateQuiz');
 
 /**
  * GET /quiz
- * @summary This is the summary or description of the endpoint
- * @tags quiz
+ * @summary Get all quizzes
+ * @tags Quiz
  * @return {array<Quiz>} 200 - success response - application/json
  */
 router.get('/', quizController.getAllQuizzes);
 
 /**
  * GET /quiz/{id}
- * @summary récuperation d'un quiz
- * @tags quiz
+ * @summary Get one quiz
+ * @tags Quiz
  * @param {string} id.path.required - Quiz id
  * @return {Quiz} 200 - success response - application/json
  */
@@ -26,8 +26,8 @@ router.get('/', quizController.getAllQuizzes);
 
 /**
  * POST /quiz
- * @summary This is the summary or description of the endpoint
- * @tags quiz
+ * @summary Create a quiz
+ * @tags Quiz
  * @param {Quiz} request.body.required - Quiz info
  * @return {array<Quiz>} 200 - success response - application/json
 
