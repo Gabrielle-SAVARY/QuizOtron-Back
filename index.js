@@ -6,6 +6,8 @@ dotenv.config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const router = require('./app/router');
+const optionSwagger = require('./app/swagger/options.js');
+const expressJSDocSwagger = require('express-jsdoc-swagger');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -30,6 +32,7 @@ app.use((req, res, next) => {
 
 app.use(router);
 /* ---------- App ---------- */
+expressJSDocSwagger(app)(optionSwagger);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT} 🚀`);
