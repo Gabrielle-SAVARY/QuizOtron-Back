@@ -1,17 +1,13 @@
 /**
- * @swagger
- * components:
- *  schemas:
- *    Role:
- *      type: object
- *      properties:
- *        id:
- *          type: integer
- *        label:
- *          type: string
- *     example:
- *        id: 2
- *        label: "admin"
+ * Un Role
+ * @typedef {object} Role
+ * @property {integer} Id Identifiant du role
+ * @property {string} label Label du role
+ * @example
+ * {
+ * id: 2,
+ * label: "admin"
+ * }
  */
 
 const { DataTypes, Model } = require('sequelize');
