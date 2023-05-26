@@ -1,31 +1,17 @@
 /**
- * @swagger
- * components:
- *   schemas:
- *     Quiz:
- *       type: object
- *       properties:
- *         id:
- *           type: integer
- *         title:
- *           type: string
- *         description:
- *           type: string
- *         thumbnail:
- *           type: string
- *         level_id:
- *           type: integer
- *         user_id:
- *           type: integer
- *       example:
- *         id: 1
- *         title: "Quiz 1"
- *         description: "Quiz 1 description"
- *         thumbnail: "https://www.google.com/url?sa=i&url"
- *         level_id: 1
- *         user_id: 1
+ * Quiz
+ * @typedef {object} Quiz
+ * @property {integer} id - Quiz id
+ * @property {string} title - Quiz title
+ * @property {string} description - Quiz description
+ * @property {string} thumbnail - Quiz thumbnail
+ * @property {integer} level_id - Quiz level id
+ * @property {integer} user_id - Quiz user id
+ * @property {Level} level - Quiz level name
+ * @property {Author} auteur - Quiz user id
+ * @property {array<Tag>} tags - Quiz tags
+ * @property {array<Question>} questions - Quiz questions
  */
-
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../database');
 
