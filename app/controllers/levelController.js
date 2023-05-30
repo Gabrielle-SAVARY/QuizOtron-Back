@@ -5,6 +5,7 @@ const levelController = {
   // Récupérer tous les niveaux
   getLevels: async (req, res) => {
     try {
+      // SELECT * FROM level;
       const levels = await Level.findAll();
 
       res.json(levels);
@@ -19,6 +20,12 @@ const levelController = {
     const levelName = req.params.name;
 
     try {
+      // SELECT * FROM level
+      // INNER JOIN quiz ON level.id = quiz.level_id
+      // INNER JOIN public.user ON quiz.user_id = public.user.id
+      // INNER JOIN quiz_has_tag ON quiz.id = quiz_has_tag.quiz_id
+      // INNER JOIN tag ON quiz_has_tag.tag_id = tag.id
+      // WHERE level.name = 'levelName';
       const levels = await Level.findAll({
         where: {name: {
           [Op.iLike]: levelName
