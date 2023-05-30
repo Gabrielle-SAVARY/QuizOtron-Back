@@ -1,6 +1,5 @@
-const { User, Quiz } = require("../models");
+const { User, Quiz, Score } = require("../models");
 const bcrypt = require("bcrypt");
-const Score = require("../models/score");
 
 const userController = {
   getUserHistory : async (req, res) => {
