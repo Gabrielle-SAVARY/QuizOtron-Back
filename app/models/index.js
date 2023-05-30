@@ -5,6 +5,7 @@ const User = require('./user');
 const Role = require('./role');
 const Level = require('./level');
 const Quiz = require('./quiz');
+const Score = require('./score');
 
 // relation entre les questions et les réponses
 Question.hasMany(Answer, {
@@ -107,4 +108,4 @@ User.belongsToMany(Quiz, {
   otherKey: 'quiz_id',
 });
 
-module.exports = { Answer, Question, Tag, User, Role, Level, Quiz };
+module.exports = { Answer, Question, Tag, User, Role, Level, Quiz, Score };
