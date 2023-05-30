@@ -10,6 +10,7 @@ const authController = {
     const {pseudo, email,  firstname, lastname, password} = req.body;
 
     // On vérifie que l'email n'est pas déjà utilisé
+    // SELECT * FROM public.user WHERE "email" ILIKE 'email@gmail.com';
     const emailExists = await User.findOne({
       where: {
         email: {
@@ -24,6 +25,7 @@ const authController = {
     }
 
     // On vérifie que le pseudo n'est pas déjà utilisé
+    // SELECT * FROM public.user WHERE pseudo ILIKE 'pseudo';
     const pseudoExists = await User.findOne({
       where: {
         pseudo: {
@@ -50,6 +52,7 @@ const authController = {
     };
 
     try {
+      // INSERT INTO public.user (pseudo, email, firstname, lastname, password, role_id) VALUES ('pseudo', 'email@gmail.com', 'firstname', 'lastname', 'test', '1');
       await User.create(newUser);
       res.status(201).json({
         message: "Votre compte a bien été créé",
@@ -66,6 +69,7 @@ const authController = {
     const { email, password } = req.body;
 
     try {
+      // SELECT * FROM public.user WHERE "email" ILIKE 'email@gmail.com';
       const user = await User.scope('withPassword').findOne({
         where: {
           email: {
