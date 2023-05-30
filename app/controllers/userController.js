@@ -2,13 +2,12 @@ const { User, Quiz, Score } = require("../models");
 const bcrypt = require("bcrypt");
 
 const userController = {
+  // Réccupérer les quiz joués par l'utilisateur avec le score obtenu
   getUserHistory : async (req, res) => {
     const { id } = req.user;
-    console.log('req.user: ', req.user);
 
     const history = await User.findByPk(id, {
       include: [
-
         {
           association: 'quizzes_scores',
           through: {
@@ -21,17 +20,17 @@ const userController = {
     res.json(history);
   },
 
+  // Ajouter un quiz à l'historique de l'utilisateur avec le score obtenu
   addUserHistory: async (req, res) => {
     const { id } = req.user;
     const { quiz_id, quiz_score } = req.body;
-    console.log('quiz_score: ', quiz_score);
 
     try {
-    // On ajoute le quiz à l'historique de l'utilisateur avec le score obtenu
-    await Score.update(
-      { quiz_score: quiz_score },
-      { where: { user_id: id, quiz_id: quiz_id } }
-    );
+      // On ajoute le quiz à l'historique de l'utilisateur avec le score obtenu
+      await Score.update(
+        { quiz_score: quiz_score },
+        { where: { user_id: id, quiz_id: quiz_id } }
+      );
 
       res.json({
         message: "Le quiz a bien été ajouté à votre historique!"
@@ -42,9 +41,11 @@ const userController = {
     }
   },
 
+  // Récupérer les quiz favoris de l'utilisateur
   getUserFavorites: async (req, res) => {
-    // TODO: Rectifier
-    const favorites = await User.findByPk(3, {
+    const { id } = req.user;
+
+    const favorites = await User.findByPk(id, {
       include: [
         {
           association: 'favorites',
@@ -55,6 +56,7 @@ const userController = {
     res.json(favorites);
   },
 
+  // Ajouter un quiz aux favoris de l'utilisateur
   addFavorite: async (req, res) => {
     const { id } = req.user;
     const { quiz_id } = req.body;
@@ -74,6 +76,7 @@ const userController = {
     }
   },
 
+  // Supprimer un quiz des favoris de l'utilisateur
   deleteFavorite: async (req, res) => {
     const { id } = req.user;
     const { quiz_id } = req.body;
@@ -93,6 +96,7 @@ const userController = {
     }
   },
 
+  // Récupérer les informations de l'utilisateur
   getUserInfos: async (req, res) => {
     const { pseudo } = req.user;
 
@@ -111,6 +115,7 @@ const userController = {
 
   },
 
+  // Récupérer les quiz créés par l'utilisateur
   getUserQuizzes: async (req, res) => {
     const { id } = req.user;
 
@@ -119,7 +124,6 @@ const userController = {
         where: {
           id: id
         },
-
         include: [
           {
             association: 'quizzes',
@@ -128,15 +132,15 @@ const userController = {
       });
 
       res.json(userQuizzes);
+
     } catch (error) {
       console.log(error);
     }
   },
 
+  // Supprimer un utilisateur
   deleteUser: async (req, res) => {
-
     const { pseudo } = req.user;
-    console.log('req.user: ', req.user);
 
     try {
       const user = await User.findOne({
@@ -145,11 +149,7 @@ const userController = {
         }
       });
 
-      console.log('Utilisateur trouvé: ', JSON.stringify(user, null, 4));
-
       await user.destroy();
-
-      console.log("Votre compte a bien été supprimé");
 
       res.json({
         message: "Votre compte a bien été supprimé!"
@@ -160,6 +160,7 @@ const userController = {
     }
   },
 
+  // Mettre à jour les informations de l'utilisateur
   updateUser: async (req, res) => {
     const { id } = req.user;
 
@@ -169,9 +170,6 @@ const userController = {
           id: id
         }
       });
-
-      console.log('Utilisateur trouvé: ', JSON.stringify(user, null, 4));
-      console.log('req.user: ', req.user);
 
       let newUser = req.body;
 
@@ -188,9 +186,6 @@ const userController = {
 
         newUser.password = hash;
       }
-
-
-      console.log('newUser: ', newUser);
 
       await user.update(newUser);
       res.json({
