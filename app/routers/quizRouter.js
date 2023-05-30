@@ -53,5 +53,4 @@ router.patch('/user/update/:id', [isValid(updateQuiz.updateQuizSchema), checkTok
 */
 router.delete('/user/delete/:id', checkToken, quizController.deleteQuiz);
 
-
 module.exports = router;

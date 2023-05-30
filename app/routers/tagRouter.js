@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const quizController = require('../controllers/quizController');
+const tagController = require('../controllers/tagController');
+
 
 /**
  * GET /tag
@@ -9,7 +10,7 @@ const quizController = require('../controllers/quizController');
  * @return {array<Tag>} 200 - success response - application/json
  * 
  */
- router.get('/', quizController.getTags);
+ router.get('/', tagController.getTags);
 
 /** 
  * GET /tag/{name}
@@ -18,6 +19,6 @@ const quizController = require('../controllers/quizController');
  * @param {string} name.path.required - Tag name
  * @return {array<Quiz>} 200 - success response - application/json
 */
- router.get('/:name', quizController.getQuizzesByTag);
+ router.get('/:name', tagController.getQuizzesByTag);
 
 module.exports = router;
