@@ -38,7 +38,7 @@ router.get('/history', checkToken, userController.getUserHistory);
  * @summary Add a quiz to user history with score
  * @tags Profile
  * @security BearerAuth
- * @param {Quiz} request.body.required - Quiz info
+ * @param {PostScore} request.body.required - Quiz info
  * @return {array<Quiz>} 200 - success response - application/json
  */
 router.post('/history', checkToken, userController.addUserHistory);

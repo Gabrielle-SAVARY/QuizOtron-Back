@@ -12,6 +12,13 @@
  * user_id: 1,
  * quiz_id: 1
  */
+
+/**
+ * Post un score
+ * @typedef {object} PostScore
+ * @property {integer} quiz_id - L'id du quiz joué
+ * @property {integer} quiz_score - Le score obtenu par l'utilisateur
+ */
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../database');
 
