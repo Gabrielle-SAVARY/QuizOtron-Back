@@ -10,6 +10,7 @@ const userUpdate = require('../validators/updateUser');
  * GET /profile
  * @summary Get user infos
  * @tags Profile
+ * @security BearerAuth
  * @return {User} 200 - success response - application/json
 */
 router.get('/', checkToken, userController.getUserInfos);
@@ -18,6 +19,7 @@ router.get('/', checkToken, userController.getUserInfos);
  * GET /profile/quiz
  * @summary Get user quizzes
  * @tags Profile
+ * @security BearerAuth
  * @return {array<Quiz>} 200 - success response - application/json
 */
 router.get('/quiz', checkToken, userController.getUserQuizzes);
@@ -26,6 +28,7 @@ router.get('/quiz', checkToken, userController.getUserQuizzes);
  * GET /profile/history
  * @summary Get user history
  * @tags Profile
+ * @security BearerAuth
  * @return {array<Quiz>} 200 - success response - application/json
 */
 router.get('/history', checkToken, userController.getUserHistory);
@@ -34,6 +37,7 @@ router.get('/history', checkToken, userController.getUserHistory);
  * POST /profile/history
  * @summary Add a quiz to user history with score
  * @tags Profile
+ * @security BearerAuth
  * @param {Quiz} request.body.required - Quiz info
  * @return {array<Quiz>} 200 - success response - application/json
  */
