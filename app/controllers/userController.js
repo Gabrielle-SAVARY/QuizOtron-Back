@@ -49,6 +49,21 @@ const userController = {
       include: [
         {
           association: 'favorites',
+          include: [
+            {
+              association: 'level',
+            },
+            {
+              association: 'author',
+              attributes: ['pseudo']
+            },
+            {
+              association: 'tags',
+              through: {
+                attributes: []
+              },
+            },
+          ]
         }
       ]
     });
