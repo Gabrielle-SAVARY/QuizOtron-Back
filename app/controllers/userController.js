@@ -6,16 +6,17 @@ const userController = {
   getUserHistory : async (req, res) => {
     const { id } = req.user;
 
+
     const history = await User.findByPk(id, {
       include: [
         {
           association: 'quizzes_scores',
           through: {
-            attributes: ['quiz_score']
+            attributes: ['id','quiz_score']
           }
         }
       ]
-    });
+    }); 
 
     res.json(history);
   },
@@ -23,21 +24,40 @@ const userController = {
   // Ajouter un quiz à l'historique de l'utilisateur avec le score obtenu
   addUserHistory: async (req, res) => {
     const { id } = req.user;
-    const { quiz_id, quiz_score } = req.body;
+    const { quiz_id, quiz_score, score_id } = req.body;
 
     try {
-      // On ajoute le quiz à l'historique de l'utilisateur avec le score obtenu
-      await Score.update(
-        { quiz_score: quiz_score },
-        { where: { user_id: id, quiz_id: quiz_id } }
+      // Créer ou met à jour une ligne de la table score
+       await Score.upsert(
+        { id: score_id,
+          quiz_score: quiz_score,        
+          user_id: id, 
+          quiz_id: quiz_id, 
+        }        
       );
 
+      // Résultat de la fonction getUserHistory à renvoyer au front
+      const history = await User.findByPk(id, {
+        include: [
+          {
+            association: 'quizzes_scores',
+            through: {
+              attributes: ['id','quiz_score']
+            }
+          }
+        ]
+      }); 
+
       res.json({
-        message: "Le quiz a bien été ajouté à votre historique!"
+        message: "Le quiz a bien été ajouté à votre historique!",
+        data : history 
       });
 
     } catch (error) {
-      console.log(error);
+      console.log('error',error);
+      res.json({
+        message: `erreur : ${error}`
+      })
     }
   },
 

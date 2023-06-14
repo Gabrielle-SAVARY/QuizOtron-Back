@@ -28,10 +28,18 @@ Score.init({
   quiz_score: {
     type: DataTypes.INTEGER,
     allowNull: false,
-  }
+  },
+   user_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  quiz_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  }  
 },{
   sequelize,
-  tableName: "score"
+  tableName: "score",
 });
 
 module.exports = Score;
