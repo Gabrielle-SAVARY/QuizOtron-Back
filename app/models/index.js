@@ -93,7 +93,10 @@ User.belongsToMany(Quiz, {
   otherKey: 'quiz_id',
 });
 
-// relation entre les utilisateurs et les scores obtenus aux quiz
+// Relation entre les utilisateurs et les scores obtenus aux quiz
+// Sequelize "Super Many-to-Many": cumul N-N User+Quiz et 1-N Score-User et 1-N Score-Quiz
+
+// relation N-N entre User et Quiz avec table d'association Score
 Quiz.belongsToMany(User, {
   as: 'user_scores',
   through: 'score',
@@ -107,5 +110,27 @@ User.belongsToMany(Quiz, {
   foreignKey: 'user_id',
   otherKey: 'quiz_id',
 });
+
+ // relation User:N-1:Score 
+User.hasMany(Score, { 
+  foreignKey: 'user_id',
+  as: 'scores'
+});
+
+  Score.belongsTo(User, {
+     foreignKey: 'user_id',
+     as: 'user'
+    });
+
+// relation Quiz:N-1:Score 
+Quiz.hasMany(Score, {
+   foreignKey: 'quiz_id',
+   as: 'scores'
+   });
+
+Score.belongsTo(Quiz, {
+   foreignKey: 'quiz_id',
+   as: 'quiz'
+  }); 
 
 module.exports = { Answer, Question, Tag, User, Role, Level, Quiz, Score };

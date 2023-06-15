@@ -5,49 +5,67 @@ const userController = {
   // Réccupérer les quiz joués par l'utilisateur avec le score obtenu
   getUserHistory : async (req, res) => {
     const { id } = req.user;
-
-
-    const history = await User.findByPk(id, {
-      include: [
-        {
-          association: 'quizzes_scores',
-          through: {
-            attributes: ['id','quiz_score']
-          }
-        }
-      ]
-    }); 
-
-    res.json(history);
+    try {
+			// SELECT score.user_id, score.id, score.quiz_score,quiz.id AS quiz_id, quiz.title, quiz.description, quiz.thumbnail from SCORE 
+			// INNER JOIN quiz ON score.quiz_id = quiz.id 
+			// WHERE  score.user_id = 'userId'
+			// ORDER BY score.id DESC
+			// LIMIT 10;      
+   const history = await Score.findAll({  
+        where: { user_id: id },
+        attributes: ['user_id','id', 'quiz_score', ],
+        order: [['id', 'DESC']],
+        limit: 10, 
+        include: [
+          {
+            model: Quiz,
+            as: 'quiz',
+            attributes: ['id', 'title', 'description', 'thumbnail'],
+          },
+        ], 
+      }); 
+      res.json(history);   
+      
+    } catch (error) {
+      res.json({
+        message: `ERREUR : ${error}`
+      })      
+    }
   },
 
   // Ajouter un quiz à l'historique de l'utilisateur avec le score obtenu
   addUserHistory: async (req, res) => {
     const { id } = req.user;
-    const { quiz_id, quiz_score, score_id } = req.body;
+    console.log('id',id);
+    const { quiz_id, quiz_score} = req.body;
+    console.log('req.body', req.body);
 
     try {
-      // Créer ou met à jour une ligne de la table score
-       await Score.upsert(
-        { id: score_id,
-          quiz_score: quiz_score,        
-          user_id: id, 
-          quiz_id: quiz_id, 
-        }        
-      );
+    // Créer ligne dans la table d'association score
+    // INSERT INTO score (quiz_score, user_id, quiz_id)
+    // VALUES (quiz_score, id, quiz_id);
+     await Score.create(
+      { 
+        quiz_score: quiz_score,        
+        user_id: id, 
+        quiz_id: quiz_id, 
+      }        
+    );
 
-      // Résultat de la fonction getUserHistory à renvoyer au front
-      const history = await User.findByPk(id, {
-        include: [
-          {
-            association: 'quizzes_scores',
-            through: {
-              attributes: ['id','quiz_score']
-            }
-          }
-        ]
-      }); 
-
+    // Fonction getUserHistory pour envoyer les données mises à jour au front
+		const history = await Score.findAll({  
+			where: { user_id: id },
+			attributes: ['user_id','id', 'quiz_score', ],
+			order: [['id', 'DESC']],
+			limit: 10, 
+			include: [
+				{
+					model: Quiz,
+					as: 'quiz',
+					attributes: ['id', 'title', 'description', 'thumbnail'],
+				},
+			], 
+		}); 
       res.json({
         message: "Le quiz a bien été ajouté à votre historique!",
         data : history 
@@ -56,7 +74,7 @@ const userController = {
     } catch (error) {
       console.log('error',error);
       res.json({
-        message: `erreur : ${error}`
+        message: `ERREUR : ${error}`
       })
     }
   },
@@ -64,32 +82,39 @@ const userController = {
   // Récupérer les quiz favoris de l'utilisateur
   getUserFavorites: async (req, res) => {
     const { id } = req.user;
-
-    const favorites = await User.findByPk(id, {
-      include: [
-        {
-          association: 'favorites',
-          include: [
-            {
-              association: 'level',
-            },
-            {
-              association: 'author',
-              attributes: ['pseudo']
-            },
-            {
-              association: 'tags',
-              through: {
-                attributes: []
-              },
-            },
-          ]
-        }
-      ]
-    });
-
-    res.json(favorites);
+		try {
+			const favorites = await User.findByPk(id, {
+				include: [
+					{
+						association: 'favorites',
+						include: [
+							{
+								association: 'level',
+							},
+							{
+								association: 'author',
+								attributes: ['pseudo']
+							},
+							{
+								association: 'tags',
+								through: {
+									attributes: []
+								},
+							},
+						]
+					}
+				]
+			});			
+			res.json(favorites);			
+		} catch (error) {
+			console.log('error',error);
+      res.json({
+        message: `ERREUR : ${error}`
+      })
+    }
   },
+
+
 
   // Ajouter un quiz aux favoris de l'utilisateur
   addFavorite: async (req, res) => {
@@ -107,7 +132,10 @@ const userController = {
       });
 
     } catch (error) {
-      console.log(error);
+			console.log('error',error);
+      res.json({
+        message: `ERREUR : ${error}`
+      })
     }
   },
 
@@ -127,7 +155,10 @@ const userController = {
       });
 
     } catch (error) {
-      console.log(error);
+			console.log('error',error);
+      res.json({
+        message: `ERREUR : ${error}`
+      })
     }
   },
 
@@ -145,9 +176,11 @@ const userController = {
       res.json(user);
 
     } catch (error) {
-      console.log(error);
+			console.log('error',error);
+      res.json({
+        message: `ERREUR : ${error}`
+      })
     }
-
   },
 
   // Récupérer les quiz créés par l'utilisateur
@@ -169,7 +202,10 @@ const userController = {
       res.json(userQuizzes);
 
     } catch (error) {
-      console.log(error);
+			console.log('error',error);
+      res.json({
+        message: `ERREUR : ${error}`
+      })
     }
   },
 
@@ -191,7 +227,10 @@ const userController = {
       });
 
     } catch (error) {
-      console.log(error);
+			console.log('error',error);
+      res.json({
+        message: `ERREUR : ${error}`
+      })
     }
   },
 
@@ -228,7 +267,10 @@ const userController = {
       });
 
     } catch (error) {
-      console.log(error);
+			console.log('error',error);
+      res.json({
+        message: `ERREUR : ${error}`
+      })
     }
   },
 };
