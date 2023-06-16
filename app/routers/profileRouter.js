@@ -43,6 +43,15 @@ router.get('/history', checkToken, userController.getUserHistory);
  */
 router.post('/history', checkToken, userController.addUserHistory);
 
+/** 
+ * GET /profile/score
+ * @summary Get user Global score/average score
+ * @tags Profile
+ * @security BearerAuth
+ * @return {number<Score>} 200 - success response - application/json //TODO retourne un number (moyenne calculée par la requête)
+*/
+router.get('/score', checkToken, userController.getUserAverageScore);
+
 /**
  * GET /profile/favorites
  * @summary Get user favorites

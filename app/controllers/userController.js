@@ -1,5 +1,6 @@
 const { User, Quiz, Score } = require("../models");
 const bcrypt = require("bcrypt");
+const { Sequelize } = require('sequelize');
 
 const userController = {
   // Réccupérer les quiz joués par l'utilisateur avec le score obtenu
@@ -8,7 +9,7 @@ const userController = {
     try {
 			// SELECT score.user_id, score.id, score.quiz_score,quiz.id AS quiz_id, quiz.title, quiz.description, quiz.thumbnail from SCORE 
 			// INNER JOIN quiz ON score.quiz_id = quiz.id 
-			// WHERE  score.user_id = 'userId'
+			// WHERE  score.user_id = 'id
 			// ORDER BY score.id DESC
 			// LIMIT 10;      
    const history = await Score.findAll({  
@@ -23,7 +24,8 @@ const userController = {
             attributes: ['id', 'title', 'description', 'thumbnail'],
           },
         ], 
-      }); 
+      });  
+
       res.json(history);   
       
     } catch (error) {
@@ -36,9 +38,7 @@ const userController = {
   // Ajouter un quiz à l'historique de l'utilisateur avec le score obtenu
   addUserHistory: async (req, res) => {
     const { id } = req.user;
-    console.log('id',id);
     const { quiz_id, quiz_score} = req.body;
-    console.log('req.body', req.body);
 
     try {
     // Créer ligne dans la table d'association score
@@ -72,6 +72,32 @@ const userController = {
       });
 
     } catch (error) {
+      console.log('error',error);
+      res.json({
+        message: `ERREUR : ${error}`
+      })
+    }
+  },
+
+  // Calcul la moyenne du score de l'utilisateur
+  getUserAverageScore: async (req, res) => {
+    const { id } = req.user;
+    try {
+      //SELECT ROUND(AVG(quiz_score), 2) AS averageScore
+      //FROM Score
+      //WHERE user_id = 'id';
+      const averageScore = await Score.findAll({
+        where: { user_id: id },
+        attributes: [
+          [
+            Sequelize.fn('ROUND', Sequelize.fn('AVG', Sequelize.col('quiz_score')), 2),
+            'averageScore',
+          ],
+        ],
+      });
+      res.json(averageScore);
+    }
+    catch (error) {
       console.log('error',error);
       res.json({
         message: `ERREUR : ${error}`
