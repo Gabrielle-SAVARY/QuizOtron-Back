@@ -95,6 +95,9 @@ const userController = {
           ],
         ],
       });
+      console.log('averageScore',averageScore);
+      console.log('averageScore TYPE',typeof averageScore);
+
       res.json(averageScore);
     }
     catch (error) {

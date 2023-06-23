@@ -48,7 +48,7 @@ router.post('/history', checkToken, userController.addUserHistory);
  * @summary Get user Global score/average score
  * @tags Profile
  * @security BearerAuth
- * @return {number<Score>} 200 - success response - application/json //TODO retourne un number (moyenne calculée par la requête)
+ * @return {objet} 200 - success response - application/json //TODO retourne un number (moyenne calculée par la requête)
 */
 router.get('/score', checkToken, userController.getUserAverageScore);
 
