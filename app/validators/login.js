@@ -11,7 +11,7 @@ const loginSchema = Joi.object({
     'any.required': `Le champs mot de passe est obligatoire.`,
     'string.base': `Le champs mot de passe doit être de type "texte".`,
     'string.min': `Le mot de passe doit comporter au minimum {#limit} caractères`,
-    'string.max': `Le mot de passe doit comporter au maximum {#limit}`,
+    'string.max': `Le mot de passe doit comporter au maximum {#limit} caractères`,
   })
 });
 
