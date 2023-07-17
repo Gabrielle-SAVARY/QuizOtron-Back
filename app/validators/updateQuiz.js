@@ -2,12 +2,12 @@ const Joi = require('joi');
 
 const updateQuizSchema = Joi.object({
   quiz: Joi.object({
-    title: Joi.string().min(3).max(150),
-    description: Joi.string().min(3).max(300),
-    thumbnail: Joi.string(),
-    level_id: Joi.number().integer(),
-    user_id: Joi.number().integer(),
-    tag_id: Joi.number().integer(),
+    title: Joi.string().min(3).max(150).required(),
+    description: Joi.string().min(3).max(300).required(),
+    thumbnail: Joi.string().required(),
+    level_id: Joi.number().integer().required(),
+    user_id: Joi.number().integer().required(),
+    tag_id: Joi.number().integer().required(),
   }),
 
   questions: Joi.array().items(
@@ -22,7 +22,7 @@ const updateQuizSchema = Joi.object({
         })
       ).min(4).max(4).required(),
     })
-  ),
+  ).min(10).max(10).required(),
 });
 
 module.exports = {
