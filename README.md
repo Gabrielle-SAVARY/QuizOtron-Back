@@ -1,6 +1,6 @@
 # Quiz-O-Tron-Back
 ## Instructions d'installation
-1. Clôner le repo Back
+1. Télécharger en zip le commit le plus récent de la branche main du repo Back (nous sommes toujours en développement).
 2. Installation du repo `npm i`
 3. Créer la structure de la base de données sur postgres SQL (doit être installé sur le pc)
    * Exemple sur windows, en vous plaçant à l'intérieur du repo BACK, ouvrir une fenêtre Powershell ou invité de commandes.
