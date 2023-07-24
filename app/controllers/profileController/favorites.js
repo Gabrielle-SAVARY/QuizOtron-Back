@@ -5,7 +5,7 @@ const favoritesUserController = {
   getUserFavorites: async (req, res) => {
     const { id } = req.user;
 		try {
-			const favorites = await User.findByPk(id, {
+			const userFavorites = await User.findByPk(id, {
 				include: [
 					{
 						association: 'favorites',
@@ -27,7 +27,7 @@ const favoritesUserController = {
 					}
 				]
 			});			
-			res.json(favorites);			
+			res.json(userFavorites);			
 		} catch (error) {
 			console.log('error',error);
       res.json({

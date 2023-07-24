@@ -7,10 +7,7 @@ const quizUserController = {
       const { id } = req.user;
   
       try {
-        const userQuizzes = await User.findOne({
-          where: {
-            id: id
-          },
+        const userQuizzes = await User.findByPk(id,{
           include: [
             {
               association: 'quizzes',
@@ -43,8 +40,9 @@ const quizUserController = {
       };
 
       // On crée le quiz en bdd
-      // INSERT INTO quiz (title, description, thumbnail, level_id, user_id)
-      // VALUES (title, description, thumbnail, level_id, user_id);
+      // SQL
+        // INSERT INTO quiz (title, description, thumbnail, level_id, user_id)
+        // VALUES (title, description, thumbnail, level_id, user_id);
       const quiz = await Quiz.create(newQuiz);
 
       // SELECT * FROM tag WHERE id = tag_id;

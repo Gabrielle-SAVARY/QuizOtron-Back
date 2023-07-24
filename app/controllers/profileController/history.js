@@ -4,13 +4,15 @@ const historyUserController = {
     // Réccupérer les quiz joués par l'utilisateur avec le score obtenu
     getUserHistory : async (req, res) => {
       const { id } = req.user;
+
       try {
-        // SELECT score.user_id, score.id, score.quiz_score,quiz.id AS quiz_id, quiz.title, quiz.description, quiz.thumbnail from SCORE 
-        // INNER JOIN quiz ON score.quiz_id = quiz.id 
-        // WHERE  score.user_id = 'id
-        // ORDER BY score.id DESC
-        // LIMIT 10;      
-     const history = await Score.findAll({  
+        // SQL
+          // SELECT score.user_id, score.id, score.quiz_score,quiz.id AS quiz_id, quiz.title, quiz.description, quiz.thumbnail from SCORE 
+          // INNER JOIN quiz ON score.quiz_id = quiz.id 
+          // WHERE  score.user_id = 'id
+          // ORDER BY score.id DESC
+          // LIMIT 10;
+        const userHistory = await Score.findAll({  
           where: { user_id: id },
           attributes: ['user_id','id', 'quiz_score', ],
           order: [['id', 'DESC']],
@@ -24,7 +26,7 @@ const historyUserController = {
           ], 
         });  
   
-        res.json(history);   
+        res.json(userHistory);   
         
       } catch (error) {
         res.json({
@@ -40,8 +42,9 @@ const historyUserController = {
   
       try {
       // Créer ligne dans la table d'association score
-      // INSERT INTO score (quiz_score, user_id, quiz_id)
-      // VALUES (quiz_score, id, quiz_id);
+      // SQL
+        // INSERT INTO score (quiz_score, user_id, quiz_id)
+        // VALUES (quiz_score, id, quiz_id);
        await Score.create(
         { 
           quiz_score: quiz_score,        
@@ -51,7 +54,7 @@ const historyUserController = {
       );
   
       // Fonction getUserHistory pour envoyer les données mises à jour au front
-      const history = await Score.findAll({  
+      const userHistory = await Score.findAll({  
         where: { user_id: id },
         attributes: ['user_id','id', 'quiz_score', ],
         order: [['id', 'DESC']],
@@ -66,7 +69,7 @@ const historyUserController = {
       }); 
         res.json({
           message: "Le quiz a bien été ajouté à votre historique!",
-          data : history 
+          data : userHistory 
         });
   
       } catch (error) {

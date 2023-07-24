@@ -5,18 +5,40 @@ const userController = {
   // Récupérer les informations de l'utilisateur
   getUserInfos: async (req, res) => {
     const { pseudo } = req.user;
-
     try {
       const user = await User.findOne({
-        where: {
-          pseudo: pseudo
-        }
+        where: { pseudo },
+        // include: [
+        //   {
+        //     association: 'quizzes',
+        //   },
+        //   {
+        //     association: 'favorites',
+        //     include: [
+        //       {
+        //         association: 'level',
+        //       },
+        //       {
+        //         association: 'author',
+        //         attributes: ['pseudo'],
+        //       },
+        //       {
+        //         association: 'tags',
+        //         through: {
+        //           attributes: [],
+        //         },
+        //       },
+        //     ],
+        //   },
+        // ],
       });
-
       res.json(user);
-
     } catch (error) {
 			console.log('error',error);
+      
+      // res.status(500).json({
+      //  message : 'Erreur lors du chargement des données'
+      // })
       res.json({
         message: `ERREUR : ${error}`
       })

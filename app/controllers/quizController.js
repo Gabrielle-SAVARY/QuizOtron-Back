@@ -4,11 +4,12 @@ const quizController = {
   // Récupérer tous les quiz
   getAllQuizzes: async (req, res) => {
     try {
-      // SELECT * FROM quiz
-      // INNER JOIN level ON quiz.level_id = level.id
-      // INNER JOIN public.user ON quiz.user_id = public.user.id
-      // INNER JOIN quiz_has_tag ON quiz.id = quiz_has_tag.quiz_id
-      // INNER JOIN tag ON quiz_has_tag.tag_id = tag.id;
+      //SQL
+        // SELECT * FROM quiz
+        // INNER JOIN level ON quiz.level_id = level.id
+        // INNER JOIN public.user ON quiz.user_id = public.user.id
+        // INNER JOIN quiz_has_tag ON quiz.id = quiz_has_tag.quiz_id
+        // INNER JOIN tag ON quiz_has_tag.tag_id = tag.id;
       const quizzes = await Quiz.findAll({
         include: [
           {
@@ -38,13 +39,13 @@ const quizController = {
   // Récupérer un quiz par son id
   getOneQuiz: async (req, res) => {
     try {
-      // TODO
-      // SELECT * FROM quiz
-      // INNER JOIN level ON quiz.level_id = level.id
-      // INNER JOIN public.user ON quiz.user_id = public.user.id
-      // INNER JOIN quiz_has_tag ON quiz.id = quiz_has_tag.quiz_id
-      // INNER JOIN tag ON quiz_has_tag.tag_id = tag.id
-      // WHERE quiz.id = 'quizId';
+      //SQL
+        // SELECT * FROM quiz
+        // INNER JOIN level ON quiz.level_id = level.id
+        // INNER JOIN public.user ON quiz.user_id = public.user.id
+        // INNER JOIN quiz_has_tag ON quiz.id = quiz_has_tag.quiz_id
+        // INNER JOIN tag ON quiz_has_tag.tag_id = tag.id
+        // WHERE quiz.id = 'quizId';
       const quiz = await Quiz.findByPk(req.params.id, {
         order: [
           [{ model: Question, as: 'questions' }, { model: Answer, as: 'answers' }, 'id', 'asc']

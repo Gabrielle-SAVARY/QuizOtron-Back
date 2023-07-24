@@ -11,7 +11,7 @@ const historyUserController = require('../../controllers/profileController/histo
  * @security BearerAuth
  * @return {array<Quiz>} 200 - success response - application/json
 */
-router.get('/history', historyUserController.getUserHistory);
+router.get('/', historyUserController.getUserHistory);
 
 /**
  * POST /profile/history
@@ -21,7 +21,7 @@ router.get('/history', historyUserController.getUserHistory);
  * @param {PostScore} request.body.required - Quiz info
  * @return {array<Quiz>} 200 - success response - application/json
  */
-router.post('/history', historyUserController.addUserHistory);
+router.post('/', historyUserController.addUserHistory);
 
 
 module.exports = router;

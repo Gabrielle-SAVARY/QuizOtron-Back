@@ -10,7 +10,9 @@ const authController = {
     const {pseudo, email,  firstname, lastname, password} = req.body;
 
     // On vérifie que l'email n'est pas déjà utilisé
-    // SELECT * FROM public.user WHERE "email" ILIKE 'email@gmail.com';
+    // SQL
+      // SELECT * FROM public.user 
+      // WHERE "email" ILIKE 'email@gmail.com';
     const emailExists = await User.findOne({
       where: {
         email: {
@@ -25,7 +27,9 @@ const authController = {
     }
 
     // On vérifie que le pseudo n'est pas déjà utilisé
-    // SELECT * FROM public.user WHERE pseudo ILIKE 'pseudo';
+    // SQL
+      // SELECT * FROM public.user 
+      // WHERE pseudo ILIKE 'pseudo';
     const pseudoExists = await User.findOne({
       where: {
         pseudo: {
@@ -43,16 +47,24 @@ const authController = {
 
     // On crée un nouvel utilisateur
     const newUser = {
-      pseudo: pseudo,
+      pseudo: pseudo, //injection possible car pas de hash
       email: email,
-      firstname: firstname,
-      lastname: lastname,
+      firstname: firstname, //injection possible car pas de hash
+      lastname: lastname, //injection possible car pas de hash
       password: hash,
       role_id: 1,
     };
 
     try {
-      // INSERT INTO public.user (pseudo, email, firstname, lastname, password, role_id) VALUES ('pseudo', 'email@gmail.com', 'firstname', 'lastname', 'test', '1');
+      // SQL
+      // INSERT INTO public.user (pseudo, email, firstname, lastname, password, role_id) 
+      // VALUES ('pseudo', 'email@gmail.com', 'firstname', 'lastname', 'test', '1');
+
+      // exemple requête préparée sans SEQUELIZE
+      // const preparedQuery = "INSERT INTO public.user (pseudo, email, firstname, lastname, password, role_id) VALUES ($1, $2, $3, $4, $5, '1')";
+      // const value = ["pseudo", "email", "firstname", "lastname", "password"];
+      // const returnValue = pg.query(preparedQuery, value);
+      // console.log(returnValue)
       await User.create(newUser);
       res.status(201).json({
         message: "Votre compte a bien été créé",

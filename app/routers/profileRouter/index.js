@@ -9,7 +9,7 @@ const profileController = require('../../controllers/profileController');
 // Import Sous-Routes
 router.use('/favorites', require('./favorites'));
 router.use('/history', require('./history'));
-router.use('/quiz',require ('./quiz'))
+router.use('/quiz', require ('./quiz'));
 
 // Route Classique
 /** 
