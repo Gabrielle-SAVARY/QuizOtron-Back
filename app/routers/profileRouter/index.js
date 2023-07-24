@@ -3,9 +3,9 @@ const express = require('express');
 const router = express.Router();
 // Import Middlewares
 const isValid = require('../../middlewares/isValid');
-// Import controllers
-const userController = require('../../controllers/userController');
 const userUpdate = require('../../validators/updateUser');
+// Import controllers
+const profileController = require('../../controllers/profileController');
 // Import Sous-Routes
 router.use('/favorites', require('./favorites'));
 router.use('/history', require('./history'));
@@ -19,7 +19,7 @@ router.use('/quiz',require ('./quiz'))
  * @security BearerAuth
  * @return {User} 200 - success response - application/json
 */
-router.get('/', userController.getUserInfos);
+router.get('/', profileController.getUserInfos);
 
   /** 
  * PATCH /profile
@@ -28,7 +28,7 @@ router.get('/', userController.getUserInfos);
  * @param {User} request.body.required - User info
  * @return {User} 200 - success response - application/json
 */
-router.patch('/', isValid(userUpdate.updateUserSchema), userController.updateUser);
+router.patch('/', isValid(userUpdate.updateUserSchema), profileController.updateUser);
 
 /** 
  * DELETE /profile
@@ -36,8 +36,7 @@ router.patch('/', isValid(userUpdate.updateUserSchema), userController.updateUse
  * @tags Profile
  * @return {User} 200 - success response - application/json
 */
-router.delete('/', userController.deleteUser);
-
+router.delete('/', profileController.deleteUser);
 
 
 // router.route('/', checkToken)
@@ -48,7 +47,7 @@ router.delete('/', userController.deleteUser);
 //  * @security BearerAuth
 //  * @return {User} 200 - success response - application/json
 // */
-//   .get(userController.getUserInfos)
+//   .get(profileController.getUserInfos)
 // /** 
 //  * PATCH /profile
 //  * @summary Update user infos
@@ -56,7 +55,7 @@ router.delete('/', userController.deleteUser);
 //  * @param {User} request.body.required - User info
 //  * @return {User} 200 - success response - application/json
 // */
-//   .patch( isValid(userUpdate.userUpdateSchema, userController.updateUser))
+//   .patch( isValid(userUpdate.userUpdateSchema, profileController.updateUser))
 
 // /** 
 //  * DELETE /profile

@@ -3,8 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 // Import controller
-const userController = require('../../controllers/userController');
-
+const historyUserController = require('../../controllers/profileController/history');
 /** 
  * GET /profile/history
  * @summary Get user history
@@ -12,7 +11,7 @@ const userController = require('../../controllers/userController');
  * @security BearerAuth
  * @return {array<Quiz>} 200 - success response - application/json
 */
-router.get('/history', userController.getUserHistory);
+router.get('/history', historyUserController.getUserHistory);
 
 /**
  * POST /profile/history
@@ -22,7 +21,7 @@ router.get('/history', userController.getUserHistory);
  * @param {PostScore} request.body.required - Quiz info
  * @return {array<Quiz>} 200 - success response - application/json
  */
-router.post('/history', userController.addUserHistory);
+router.post('/history', historyUserController.addUserHistory);
 
 
 module.exports = router;

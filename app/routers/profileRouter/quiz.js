@@ -6,9 +6,7 @@ const isValid = require('../../middlewares/isValid');
 const createQuiz = require('../../validators/createQuiz');
 const updateQuiz = require('../../validators/updateQuiz');
 // Import controllers
-const userController = require('../../controllers/userController');
-const quizController = require('../../controllers/quizController');
-
+const quizUserController = require('../../controllers/profileController/quiz');
 
 /** 
  * GET /profile/quiz
@@ -17,7 +15,7 @@ const quizController = require('../../controllers/quizController');
  * @security BearerAuth
  * @return {array<Quiz>} 200 - success response - application/json
 */
-router.get('/', userController.getUserQuizzes);
+router.get('/', quizUserController.getUserQuizzes);
 
 /**
  * POST /profile/quiz
@@ -27,7 +25,7 @@ router.get('/', userController.getUserQuizzes);
  * @return {array<Quiz>} 200 - success response - application/json
 
  */
-router.post('/', isValid(createQuiz.createQuizSchema), quizController.createQuiz);
+router.post('/', isValid(createQuiz.createQuizSchema), quizUserController.createQuiz);
 
 /** 
  * PATCH /profile/quiz/{id}
@@ -37,7 +35,7 @@ router.post('/', isValid(createQuiz.createQuizSchema), quizController.createQuiz
  * @param {Quiz} request.body.required - Quiz info
  * @return {Quiz} 200 - success response - application/json
 */
-router.patch('/:id', isValid(updateQuiz.updateQuizSchema), quizController.updateQuiz);
+router.patch('/:id', isValid(updateQuiz.updateQuizSchema), quizUserController.updateQuiz);
 
 /** 
  * DELETE /profile/quiz/{id}
@@ -46,6 +44,6 @@ router.patch('/:id', isValid(updateQuiz.updateQuizSchema), quizController.update
  * @param {string} id.path.required - Quiz id
  * @return {Quiz} 200 - success response - application/json
 */
-router.delete('/:id', quizController.deleteQuiz);
+router.delete('/:id', quizUserController.deleteQuiz);
 
 module.exports = router;

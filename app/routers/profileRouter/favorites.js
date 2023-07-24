@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 // Import controller
-const userController = require('../../controllers/userController');
+const profileUserController = require('../../controllers/profileController/favorites');
 
 /**
  * GET /profile/favorites
@@ -11,7 +11,7 @@ const userController = require('../../controllers/userController');
  * @tags Profile
  * @return {array<Quiz>} 200 - success response - application/json
  */
-router.get('/', userController.getUserFavorites);
+router.get('/', profileUserController.getUserFavorites);
 
 /** 
  * POST /profile/favorites/
@@ -20,7 +20,7 @@ router.get('/', userController.getUserFavorites);
  * @param {Quiz} request.body.required - Quiz info
  * @return {array<Quiz>} 200 - success response - application/json
 */
-router.post('/', userController.addFavorite);
+router.post('/', profileUserController.addFavorite);
 
 /** 
  * DELETE /profile/favorites/
@@ -29,7 +29,7 @@ router.post('/', userController.addFavorite);
  * @param {Quiz} request.body.required - Quiz info
  * @return {array<Quiz>} 200 - success response - application/json
 */
-router.delete('/', userController.deleteFavorite);
+router.delete('/', profileUserController.deleteFavorite);
 
 
 module.exports = router;
