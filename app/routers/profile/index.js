@@ -1,17 +1,15 @@
 // Import Router Express
 const express = require('express');
 const router = express.Router();
-
 // Import Middlewares
 const isValid = require('../../middlewares/isValid');
-
 // Import controllers
 const userController = require('../../controllers/userController');
 const userUpdate = require('../../validators/updateUser');
-
 // Import Sous-Routes
 router.use('/favorites', require('./favorites'));
 router.use('/history', require('./history'));
+router.use('/quiz',require ('./quiz'))
 
 // Route Classique
 /** 
