@@ -6,7 +6,8 @@ const tagController = {
   // Récupérer tous les tags
   getTags: async (req, res) => {
     try {
-      // SELECT * FROM tag;
+      // SQL
+        // SELECT * FROM tag;
       const tags = await Tag.findAll();
 
       res.json(tags);
@@ -21,12 +22,13 @@ const tagController = {
     const tagName = req.params.name;
 
     try {
-      // SELECT * FROM tag
-      // LEFT JOIN quiz_has_tag ON tag.id = quiz_has_tag.tag_id
-      // LEFT JOIN quiz ON quiz_has_tag.quiz_id = quiz.id
-      // LEFT JOIN level ON quiz.level_id = level.id
-      // LEFT JOIN public.user ON quiz.user_id = public.user.id
-      // WHERE tag.name ILIKE 'tagName';
+      // SQL
+        // SELECT * FROM tag
+        // LEFT JOIN quiz_has_tag ON tag.id = quiz_has_tag.tag_id
+        // LEFT JOIN quiz ON quiz_has_tag.quiz_id = quiz.id
+        // LEFT JOIN level ON quiz.level_id = level.id
+        // LEFT JOIN public.user ON quiz.user_id = public.user.id
+        // WHERE tag.name ILIKE 'tagName';
       const tags = await Tag.findAll({
         where: {name: {
           [Op.iLike]: tagName
