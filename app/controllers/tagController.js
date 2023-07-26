@@ -13,7 +13,12 @@ const tagController = {
       res.json(tags);
 
     } catch (error) {
-      res.status(500).send(error);
+      res
+      .status(500)
+      .json({
+        statusCode : 500,
+        message: `ERREUR sur getTags() : ${error}`
+      });
     }
   },
 
@@ -47,7 +52,12 @@ const tagController = {
       res.json(tags);
 
     } catch (error) {
-      res.status(500).send(error);
+      res
+      .status(500)
+      .json({
+        statusCode : 500,
+        message: `ERREUR sur getQuizzesByTag() : ${error}`
+      });
     }
   },
 };

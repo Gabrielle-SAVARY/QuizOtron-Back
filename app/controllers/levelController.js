@@ -12,7 +12,12 @@ const levelController = {
       res.json(levels);
 
     } catch (error) {
-      res.status(500).send(error);
+      res
+      .status(500)
+      .json({
+        statusCode : 500,
+        message: `ERREUR sur getLevels() : ${error}`
+      });
     }
   },
 
@@ -46,7 +51,12 @@ const levelController = {
       res.json(levels);
 
     } catch (error) {
-      res.status(500).send(error);
+      res
+      .status(500)
+      .json({
+        statusCode : 500,
+        message: `ERREUR sur getQuizzesByLevel() : ${error}`
+      });
     }
   },
 }
