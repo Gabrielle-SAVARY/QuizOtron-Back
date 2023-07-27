@@ -23,7 +23,10 @@ const authController = {
     });
 
     if (emailExists) {
-      return res.status(400).json("Cet email est déjà utilisé");
+      return res.status(400).json({
+        statusCode : 400,
+        message : "Cet email est déjà utilisé"
+      });
     }
 
     // On vérifie que le pseudo n'est pas déjà utilisé
@@ -39,7 +42,10 @@ const authController = {
     });
 
     if (pseudoExists) {
-      return res.status(400).json("Ce pseudo est déjà utilisé");
+      return res.status(400).json({
+        statusCode : 400,
+        message : "Ce pseudo est déjà utilisé"
+      });
     }
 
     // On hash le mot de passe avant de l'enregistrer en base de données
@@ -71,7 +77,12 @@ const authController = {
         isRegistered: true,
       });
     } catch (error) {
-      res.status(500).json(error);
+      res
+      .status(500)
+      .json({
+        statusCode : 500,
+        message: `ERREUR sur register() : ${error}`
+      });
     }
   },
 
@@ -92,7 +103,10 @@ const authController = {
 
       // Si la requête ne renvoie aucun utilisateur, c'est que l'email n'existe pas en base de données
       if (!user) {
-        return res.status(400).json("Vos identifiants de connexion ne correspondent à aucun compte sur notre système");
+        return res.status(400).json({
+          statusCode : 400,
+          message:"Vos identifiants de connexion ne correspondent à aucun compte sur notre système",
+        });
       }
 
       // On compare le mot de passe envoyé dans le formulaire avec le hash enregistré en base de données
@@ -100,7 +114,10 @@ const authController = {
 
       // Si les mots de passe ne correspondent pas, on renvoie une erreur
       if (!match) {
-        return res.status(400).json("Vos identifiants de connexion ne correspondent à aucun compte sur notre système");
+        return res.status(400).json({
+          statusCode : 400,
+          message:"Vos identifiants de connexion ne correspondent à aucun compte sur notre système",
+        });
       }
 
       // On renvoie les données de l'utilisateur et le token au client
@@ -114,7 +131,12 @@ const authController = {
       });
 
     } catch (error) {
-      res.status(500).json(error);
+      res
+      .status(500)
+      .json({
+        statusCode : 500,
+        message: `ERREUR sur login() : ${error}`
+      });
     }
   }
 };

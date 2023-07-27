@@ -34,13 +34,9 @@ const userController = {
       });
       res.json(user);
     } catch (error) {
-			console.log('error',error);
-      
-      // res.status(500).json({
-      //  message : 'Erreur lors du chargement des données'
-      // })
       res.json({
-        message: `ERREUR : ${error}`
+        statusCode: 500,
+        message: `ERREUR sur getUserInfos() : ${error}`
       })
     }
   },
@@ -62,9 +58,11 @@ const userController = {
         // Si l'utilisateur a renseigné un ancien mot de passe, on vérifie qu'il correspond à celui en base de données
         // Et ensuite on hash le nouveau mot de passe
         const match = await bcrypt.compare(newUser.oldPassword, user.password);
-
         if (!match) {
-          return res.status(400).json("Le mot de passe est incorrect");
+          return res.status(400).json({
+            statusCode: 400,
+            message: "L'ancien mot de passe est incorrect"
+            });
         }
 
         const hash = bcrypt.hashSync(newUser.password, 10);
@@ -78,9 +76,9 @@ const userController = {
       });
 
     } catch (error) {
-			console.log('error',error);
-      res.json({
-        message: `ERREUR : ${error}`
+      res.status(500).json({
+        statusCode: 500,
+        message: `ERREUR sur updateUser() : ${error}`
       })
     }
   },
@@ -103,9 +101,9 @@ const userController = {
       });
 
     } catch (error) {
-			console.log('error',error);
       res.json({
-        message: `ERREUR : ${error}`
+        statusCode: 500,
+        message: `ERREUR sur deleteUser() : ${error}`
       })
     }
   },

@@ -28,10 +28,10 @@ const favoritesUserController = {
 				]
 			});			
 			res.json(userFavorites);			
-		} catch (error) {
-			console.log('error',error);
+    } catch (error) {
       res.json({
-        message: `ERREUR : ${error}`
+        statusCode: 500,
+        message: `ERREUR sur getUserFavorites() : ${error}`
       })
     }
   },
@@ -54,9 +54,9 @@ const favoritesUserController = {
       });
 
     } catch (error) {
-			console.log('error',error);
       res.json({
-        message: `ERREUR : ${error}`
+        statusCode: 500,
+        message: `ERREUR sur addFavorite() : ${error}`
       })
     }
   },
@@ -77,9 +77,9 @@ const favoritesUserController = {
       });
 
     } catch (error) {
-			console.log('error',error);
       res.json({
-        message: `ERREUR : ${error}`
+        statusCode: 500,
+        message: `ERREUR sur deleteFavorite() : ${error}`
       })
     }
   },

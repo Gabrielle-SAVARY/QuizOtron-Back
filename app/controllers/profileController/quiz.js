@@ -18,9 +18,9 @@ const quizUserController = {
         res.json(userQuizzes);
   
       } catch (error) {
-        console.log('error',error);
         res.json({
-          message: `ERREUR : ${error}`
+          statusCode: 500,
+          message: `ERREUR sur getUserQuizzes() : ${error}`
         })
       }
     },
@@ -44,12 +44,12 @@ const quizUserController = {
         // INSERT INTO quiz (title, description, thumbnail, level_id, user_id)
         // VALUES (title, description, thumbnail, level_id, user_id);
       const quiz = await Quiz.create(newQuiz);
-
-      // SELECT * FROM tag WHERE id = tag_id;
-      const tag = await Tag.findByPk(tag_id);
-
+      
       // On associe le tag au quiz
-      // INSERT INTO quiz_has_tag (quiz_id, tag_id)
+      // SQL
+        // SELECT * FROM tag WHERE id = tag_id;
+        // INSERT INTO quiz_has_tag (quiz_id, tag_id)
+      const tag = await Tag.findByPk(tag_id);
       await quiz.addTags(tag);
 
       // On récupère les données des questions et des réponses
@@ -77,14 +77,16 @@ const quizUserController = {
       });
 
       res.json({
-        message: "Le quiz a bien été créé",
+        message: "Le quiz a été créé avec succès",
       });
 
     } catch (error) {
-      res.status(500).send(error);
-      console.log(error);
+      res.json({
+        statusCode: 500,
+        message: `ERREUR sur createQuiz() : ${error}`
+      })
     }
-  },
+},
 
   // Supprimer un quiz
   deleteQuiz: async (req, res) => {
@@ -102,7 +104,10 @@ const quizUserController = {
       });
 
     } catch (error) {
-      console.log(error);
+      res.json({
+        statusCode: 500,
+        message: `ERREUR sur deleteQuiz() : ${error}`
+      })
     }
   },
 
@@ -110,7 +115,11 @@ const quizUserController = {
   updateQuiz: async (req, res) => {
     const quizId = req.params.id;
     const foundQuiz = await Quiz.findByPk(quizId);
-
+    
+    if(!foundQuiz) return res.status(400).json({
+      statusCode: 400,
+      message: "Le quiz n'existe pas" }
+    );
     try {
       // On récupère les données du quiz
       const { title, description, thumbnail, level_id, user_id, tag_id } = req.body.quiz;
@@ -138,7 +147,6 @@ const quizUserController = {
       
       // On associe le nouveau tag au quiz
       await foundQuiz.setTags([tag]);
-
 
       // On récupère les données des questions et des réponses
       const questionsWithAnswers = req.body.questions;
@@ -171,11 +179,14 @@ const quizUserController = {
     }
 
       res.json({
-        message: "Le quiz a bien été modifié",
+        message: "Le quiz a bien été modifié.",
       });
       
     } catch (error) {
-      console.log(error);
+      res.json({
+        statusCode: 500,
+        message: `ERREUR sur updateQuiz() : ${error}`
+      })
     }
   },
   
