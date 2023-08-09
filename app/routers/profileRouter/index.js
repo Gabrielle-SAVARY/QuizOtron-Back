@@ -12,30 +12,13 @@ router.use('/history', require('./history'));
 router.use('/quiz', require ('./quiz'));
 
 // Route Classique
-/** 
- * GET /profile
- * @summary Get user infos
- * @tags Profile
- * @security BearerAuth
- * @return {User} 200 - success response - application/json
-*/
+
 router.get('/', profileController.getUserInfos);
 
-  /** 
- * PATCH /profile
- * @summary Update user infos
- * @tags Profile
- * @param {User} request.body.required - User info
- * @return {User} 200 - success response - application/json
-*/
+
 router.patch('/', isValid(userUpdate.updateUserSchema), profileController.updateUser);
 
-/** 
- * DELETE /profile
- * @summary Delete user
- * @tags Profile
- * @return {User} 200 - success response - application/json
-*/
+
 router.delete('/', profileController.deleteUser);
 
 

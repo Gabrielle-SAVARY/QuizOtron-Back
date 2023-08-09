@@ -1,4 +1,5 @@
 const { User } = require("../../models");
+const { Op } = require("sequelize");
 const bcrypt = require("bcrypt");
 
 const userController = {
@@ -7,30 +8,7 @@ const userController = {
     const { pseudo } = req.user;
     try {
       const user = await User.findOne({
-        where: { pseudo },
-        // include: [
-        //   {
-        //     association: 'quizzes',
-        //   },
-        //   {
-        //     association: 'favorites',
-        //     include: [
-        //       {
-        //         association: 'level',
-        //       },
-        //       {
-        //         association: 'author',
-        //         attributes: ['pseudo'],
-        //       },
-        //       {
-        //         association: 'tags',
-        //         through: {
-        //           attributes: [],
-        //         },
-        //       },
-        //     ],
-        //   },
-        // ],
+        where: { pseudo },        
       });
       res.json(user);
     } catch (error) {
@@ -53,7 +31,46 @@ const userController = {
       });
 
       let newUser = req.body;
+      console.log('user',user);
+      console.log('newUser',newUser);
 
+      if (newUser.email) {
+        // Si l'utilisateur a renseigné un nouvel email, on vérifie qu'il n'existe pas déjà en base de données
+        const emailExists = await User.findOne({
+          where: {
+            email: {
+              // On utilise Op.iLike car on veut que la recherche soit insensible à la casse
+              [Op.iLike]: newUser.email,
+            }
+          }
+        });
+    
+        if (emailExists && newUser.email !== user.email) {
+          console.log('emailExists', emailExists);
+          return res.status(400).json({
+            statusCode : 400,
+            message : "Cet email est déjà utilisé"
+          });
+        }
+
+      }
+      if (newUser.pseudo) {
+        const pseudoExists = await User.findOne({
+          where: {
+            pseudo: {
+              [Op.iLike]: newUser.pseudo,
+            }
+          }
+        });
+    
+        if (pseudoExists && newUser.pseudo !== user.pseudo) {
+          console.log('pseudoExists', pseudoExists);
+          return res.status(400).json({
+            statusCode : 400,
+            message : "Ce pseudo est déjà utilisé"
+          });
+        }
+      }
       if (newUser.password) {
         // Si l'utilisateur a renseigné un ancien mot de passe, on vérifie qu'il correspond à celui en base de données
         // Et ensuite on hash le nouveau mot de passe
@@ -66,14 +83,13 @@ const userController = {
         }
 
         const hash = bcrypt.hashSync(newUser.password, 10);
-
         newUser.password = hash;
       }
-
       await user.update(newUser);
       res.json({
         message: "Votre compte a bien été mis à jour!"
       });
+
 
     } catch (error) {
       res.status(500).json({

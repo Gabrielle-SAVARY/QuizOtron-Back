@@ -5,12 +5,6 @@ const router = express.Router();
 // Import controller
 const profileUserController = require('../../controllers/profileController/favorites');
 
-/**
- * GET /profile/favorites
- * @summary Get user favorites
- * @tags Profile
- * @return {array<Quiz>} 200 - success response - application/json
- */
 router.get('/', profileUserController.getUserFavorites);
 
 /** 

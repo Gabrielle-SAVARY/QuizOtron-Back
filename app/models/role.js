@@ -1,7 +1,7 @@
 /**
  * Un Role
  * @typedef {object} Role
- * @property {integer} Id Identifiant du role
+ * @property {integer} id Identifiant du role
  * @property {string} label Label du role
  * @example
  * {

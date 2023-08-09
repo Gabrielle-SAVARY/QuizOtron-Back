@@ -7,7 +7,11 @@ const isValid = (schema, provider = 'body') => {
 
     // Si on a une erreur, on renvoie le message d'erreur
     if (error) {
-      return res.status(400).json(error.message);
+      return res.status(400).json({
+        statusCode:400,
+        message : error.message
+      }
+        );
     }
 
     // Sinon, on enregistre les données validées dans req.body et on passe au middleware suivant
