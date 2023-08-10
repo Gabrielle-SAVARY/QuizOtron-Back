@@ -1,3 +1,4 @@
+//* ROUTE: GET /profile
 /** 
  * GET /profile
  * @summary Get user infos
@@ -7,6 +8,7 @@
  * @returns {Error} 500 - ERREUR sur getUserInfos() * 
 */
 
+//* ROUTE: PATCH /profile
   /** 
  * PATCH /profile
  * @summary Update user infos: soit email et pseudo, soit password
@@ -17,7 +19,8 @@
  * @return {Error} 400 - Erreur email ou pseudo déjà utilisé/ ancien mot de passe incorrect
  * @return {Error} 500 - Erreur serveur
   */
-
+ 
+//* ROUTE: DELETE /tag
 /** 
  * DELETE /profile
  * @summary Delete user

@@ -1,3 +1,4 @@
+//* ROUTE: GET /quiz
 /**
  * GET /quiz
  * @summary Get all quizzes
@@ -6,7 +7,6 @@
  * @return {Error} 404 - Impossible de récupérer les quiz
  * @returns {Error} 500 - ERREUR sur getAllQuizzes()  
 */
-
 /**
  * Une carte de quiz
  * @typedef {object} CardQuiz
@@ -19,6 +19,7 @@
  * @property {array<Tag>} tags - tags/catégories du quiz
 */
 
+//* ROUTE: GET /quiz/:id
 /**
  * GET /quiz/{id}
  * @summary Get a quiz by id
@@ -28,10 +29,14 @@
  * @return {Error} 404 - Quiz introuvable
  * @returns {Error} 500 - ERREUR sur getOneQuiz()  
  */
-
 /**
  * Un Quiz
  * @typedef {object} Quiz
- * @property {CardQuiz} id - id du quiz
+ * @property {CardQuiz} - infos de la carte du quiz
  * @property {arrray<Question>} questions - questions du quiz
  */
+
+
+
+
+

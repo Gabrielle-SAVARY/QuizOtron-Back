@@ -1,14 +1,3 @@
-/**
- * Un Role
- * @typedef {object} Role
- * @property {integer} id Identifiant du role
- * @property {string} label Label du role
- * @example
- * {
- * id: 2,
- * label: "admin"
- * }
- */
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../database');
 

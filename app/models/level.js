@@ -1,9 +1,3 @@
-/**
- * un level
- * @typedef {object} Level
- * @property {integer} id - id du level
- * @property {string} name - nom du level
- */
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../database');
 

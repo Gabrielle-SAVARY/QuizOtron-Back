@@ -1,16 +1,17 @@
-/**
- * un Level
- * @typedef {object} Level
- * @property {number} id - id du level
- * @property {string} name - nom du level
- */
 
+//* ROUTE: GET /level
 /**
  * GET /level
  * @summary Get all levels
  * @tags Level
  * @return {array<Level>} 200 - tableau de tous les niveaux
  * @return {Error} 500 - Erreur serveur
+*/
+/**
+ * un Level
+ * @typedef {object} Level
+ * @property {number} id - id du level
+ * @property {string} name - nom du level
  */
 
 

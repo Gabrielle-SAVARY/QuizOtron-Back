@@ -7,3 +7,10 @@
  * @property {array<Answer>} answers - choix de réponses de la question
  */
 
+/**
+ * Création d'une question
+ * @typedef {object} QuestionCreate
+ * @property {string} question - libellé de la question
+ * @property {array<AnswerCreate>} answers - choix de réponses de la question
+ */
+

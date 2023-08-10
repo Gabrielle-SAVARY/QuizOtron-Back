@@ -1,3 +1,4 @@
+//* ROUTE: GET /tag
 /**
  * GET /tag
  * @tags Tag
@@ -7,7 +8,7 @@
  */
 
 /**
- * Un tag
+ * Un tag/ une catégorie
  * @typedef {object} Tag - un tag/ une catégorie
  * @property {integer} id - id du tag
  * @property {string} name - nom du tag

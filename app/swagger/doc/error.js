@@ -16,7 +16,7 @@
  * User history Success
  * @typedef {object} SuccessUserHistory
  * @property {string} message message de succès
- * @property {array<History>} data données de l'historique de l'utilisateur
+ * @property {array<History>} isRegistered utilisateur créé ou non
  */
 
 //* ERROR

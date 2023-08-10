@@ -11,41 +11,15 @@ router.use('/favorites', require('./favorites'));
 router.use('/history', require('./history'));
 router.use('/quiz', require ('./quiz'));
 
-// Route Classique
-
+// Routes Classiques
 router.get('/', profileController.getUserInfos);
-
-
 router.patch('/', isValid(userUpdate.updateUserSchema), profileController.updateUser);
-
-
 router.delete('/', profileController.deleteUser);
 
-
+// Routes 2nd version
 // router.route('/', checkToken)
-// /** 
-//  * GET /profile
-//  * @summary Get user infos
-//  * @tags Profile
-//  * @security BearerAuth
-//  * @return {User} 200 - success response - application/json
-// */
 //   .get(profileController.getUserInfos)
-// /** 
-//  * PATCH /profile
-//  * @summary Update user infos
-//  * @tags Profile
-//  * @param {User} request.body.required - User info
-//  * @return {User} 200 - success response - application/json
-// */
 //   .patch( isValid(userUpdate.userUpdateSchema, profileController.updateUser))
-
-// /** 
-//  * DELETE /profile
-//  * @summary Delete user
-//  * @tags Profile
-//  * @return {User} 200 - success response - application/json
-// */
 //   .delete(userController.deleteUser);
 
 module.exports = router;

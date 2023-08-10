@@ -24,15 +24,9 @@ const userController = {
     const { id } = req.user;
 
     try {
-      const user = await User.scope('withPassword').findOne({
-        where: {
-          id: id
-        }
-      });
+      const user = await User.scope('withPassword').findByPk(id)
 
       let newUser = req.body;
-      console.log('user',user);
-      console.log('newUser',newUser);
 
       if (newUser.email) {
         // Si l'utilisateur a renseigné un nouvel email, on vérifie qu'il n'existe pas déjà en base de données
@@ -46,7 +40,6 @@ const userController = {
         });
     
         if (emailExists && newUser.email !== user.email) {
-          console.log('emailExists', emailExists);
           return res.status(400).json({
             statusCode : 400,
             message : "Cet email est déjà utilisé"
@@ -64,14 +57,19 @@ const userController = {
         });
     
         if (pseudoExists && newUser.pseudo !== user.pseudo) {
-          console.log('pseudoExists', pseudoExists);
           return res.status(400).json({
             statusCode : 400,
             message : "Ce pseudo est déjà utilisé"
           });
         }
       }
-      if (newUser.password) {
+      if (newUser.oldPassword && newUser.password) {        
+        if( newUser.password != newUser.passwordConfirm){
+          return res.status(400).json({
+            statusCode: 400,
+            message: "Les mots de passes ne sont pas identiques"
+            });
+        }
         // Si l'utilisateur a renseigné un ancien mot de passe, on vérifie qu'il correspond à celui en base de données
         // Et ensuite on hash le nouveau mot de passe
         const match = await bcrypt.compare(newUser.oldPassword, user.password);
