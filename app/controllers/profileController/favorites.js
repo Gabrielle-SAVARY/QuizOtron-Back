@@ -9,13 +9,14 @@ const favoritesUserController = {
 				include: [
 					{
 						association: 'favorites',
+            attributes: { exclude: ['level_id', 'user_id', ] },
 						include: [
 							{
 								association: 'level',
 							},
 							{
 								association: 'author',
-								attributes: ['pseudo']
+								attributes: ['id', 'pseudo']
 							},
 							{
 								association: 'tags',
@@ -23,7 +24,7 @@ const favoritesUserController = {
 									attributes: []
 								},
 							},
-						]
+						],            
 					}
 				]
 			});			

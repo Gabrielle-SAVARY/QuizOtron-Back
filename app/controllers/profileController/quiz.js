@@ -1,7 +1,7 @@
 const { Quiz, Tag, Question, Answer, User } = require("../../models");
 
 const quizUserController = {
-
+    //TODO Attention: non utilisé
     // Récupérer les quiz créés par l'utilisateur
     getUserQuizzes: async (req, res) => {
       const { id } = req.user;
@@ -11,6 +11,14 @@ const quizUserController = {
           include: [
             {
               association: 'quizzes',
+              include: [
+                {
+                  association: 'tags',
+                  through: {
+                    attributes: []
+                  }
+                }
+              ]
             }
           ]
         });

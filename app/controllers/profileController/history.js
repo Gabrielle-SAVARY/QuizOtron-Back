@@ -22,6 +22,21 @@ const historyUserController = {
             model: Quiz,
             as: 'quiz',
             attributes: ['id', 'title', 'description', 'thumbnail'],
+            include: [
+              {
+                association: 'level',
+              },
+              {
+                association: 'author',
+                attributes: ['id','pseudo']
+              },
+              {
+                association: 'tags',
+                through: {
+                attributes: []
+                }
+              },
+            ],
           },
         ], 
       });  
@@ -65,9 +80,24 @@ const historyUserController = {
           model: Quiz,
           as: 'quiz',
           attributes: ['id', 'title', 'description', 'thumbnail'],
+          include: [
+            {
+              association: 'level',
+            },
+            {
+              association: 'author',
+              attributes: ['id','pseudo']
+            },
+            {
+              association: 'tags',
+              through: {
+              attributes: []
+              }
+            },
+          ],
         },
       ], 
-    }); 
+    });  
       res.json({
         message: "Le quiz a bien été ajouté à votre historique!",
         data : userHistory 

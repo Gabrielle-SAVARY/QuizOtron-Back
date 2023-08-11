@@ -11,13 +11,14 @@ const quizController = {
         // INNER JOIN quiz_has_tag ON quiz.id = quiz_has_tag.quiz_id
         // INNER JOIN tag ON quiz_has_tag.tag_id = tag.id;
       const quizzes = await Quiz.findAll({
+        attributes: { exclude: ['level_id', 'user_id'] },
         include: [
           {
             association: 'level',
           },
           {
             association: 'author',
-            attributes: ['pseudo']
+            attributes: ['id','pseudo']
           },
           {
             association: 'tags',
@@ -30,7 +31,7 @@ const quizController = {
       if(!quizzes) {
         return res.status(404).json({
           statusCode : 404,
-          message: 'Pas de Quiz en BDD'
+          message: 'Impossible de récupérer les quiz'
         })
       }
 
@@ -63,14 +64,14 @@ const quizController = {
         order: [
           [{ model: Question, as: 'questions' }, { model: Answer, as: 'answers' }, 'id', 'asc']
         ],
+        attributes: { exclude: ['level_id', 'user_id'] },
         include: [
           {
             association: 'level',
-            attributes: ['name']
           },
           {
             association: 'author',
-            attributes: ['pseudo']
+            attributes: ['id', 'pseudo']
           },
           {
             association: 'tags',
