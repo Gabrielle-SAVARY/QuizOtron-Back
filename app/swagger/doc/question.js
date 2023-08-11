@@ -14,3 +14,11 @@
  * @property {array<AnswerCreate>} answers - choix de réponses de la question
  */
 
+/**
+ * Mise à jour d'une question
+ * @typedef {object} QuestionUpdate
+ * @property {integer} id - id d'une question
+ * @property {string} question - libellé de la question
+ * @property {array<AnswerUpdate>} answers - choix de réponses de la question
+ */
+

@@ -12,11 +12,12 @@
  * "password" : "123456",
  * "passwordConfirm" : "123456"
  * }
- * @returns {SuccessSignup} 200 - message de succès
- * @returns {Error} 400 - Erreur email ou pseudo déjà utilisé
- * @returns {Error} 500 - ERREUR sur register()
+ * @return {SuccessSignup} 200 - message de succès
+ * @return {Error} 400 - Erreur email ou pseudo déjà utilisé
+ * @return {Error} 500 - ERREUR sur register()
  */
-/** Postregister - formulaire d'inscription
+/** 
+ * Postregister - formulaire d'inscription
  * @typedef {object} Postregister
  * @property {string} email email de l'utilisateur
  * @property {string} pseudo pseudo de l'utilisateur
@@ -36,9 +37,9 @@
  * "email" : "John@Doe.com",
  * "password" : "123456"
  * }
- * @returns {LoggedUser} 200 - utilisateur connecté
- * @returns {Error} 400 - non autorisé - Mauvais identifiants
- * @returns {Error} 500 - ERREUR sur function()
+ * @return {LoggedUser} 200 - utilisateur connecté
+ * @return {Error} 400 - non autorisé - Mauvais identifiants
+ * @return {Error} 500 - ERREUR sur function()
  */
 /**
  * PostLogin - formulaire de connexion

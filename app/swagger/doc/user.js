@@ -11,7 +11,7 @@
  * @typedef {object} UserInfosUpdate
  * @property {string} email email de l'utilisateur
  * @property {string} pseudo pseudo de l'utilisateur
- *  @property {string} oldPassword mot de passe de l'utilisateur
+ * @property {string} oldPassword mot de passe de l'utilisateur
  * @property {string} password mot de passe de l'utilisateur
  * @property {string} passwordConfirm confirmation du mot de passe de l'utilisateur
 */
@@ -30,7 +30,7 @@
  */
 
 
-//* ROLE
+//* ROLE DE L'UTILISATEUR
 /**
  * Un Role
  * @typedef {object} Role

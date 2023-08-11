@@ -4,7 +4,7 @@
  * @tags Tag
  * @summary Get all tags
  * @return {array<Tag>} 200 - tableau de toutes les catégories
- * @returns {Error} 500 - ERREUR sur getTags() * 
+ * @return {Error} 500 - ERREUR sur getTags() * 
  */
 
 /**

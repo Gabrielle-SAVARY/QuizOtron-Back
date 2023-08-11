@@ -13,3 +13,11 @@
  * @property {string} answer - libellé de la réponse
  * @property {boolean} is_valid - réponse correcte ou non
  */
+
+/**
+ * Mise à jour d'une réponse
+ * @typedef {object} AnswerUpdate
+ * @property {integer} id - id de la réponse
+ * @property {string} answer - libellé de la réponse
+ * @property {boolean} is_valid - réponse correcte ou non
+ */

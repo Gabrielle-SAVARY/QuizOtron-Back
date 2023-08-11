@@ -23,7 +23,7 @@
  * UserFavoritesQuiz
  * @typedef {object} QuizFavorites
  * @property {integer} id - id du quiz
- * @property {title} title - nom du quiz
+ * @property {string} title - nom du quiz
  * @property {string} description - description du quiz
  * @property {string} thumbnail - image du quiz
  * @property {Level} level - niveau du quiz
@@ -33,7 +33,7 @@
 */
 /**
  * favorite
- * @typedef {object} favorite
+ * @typedef {object} Favorite
  * @property {integer} quiz_id - id du quiz
  * @property {integer} user_id - id de l'utilisateur/auteur du quiz
 */

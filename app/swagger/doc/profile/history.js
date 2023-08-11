@@ -5,7 +5,7 @@
  * @tags Profile History
  * @security BearerAuth
  * @return {array<History>} 200 - tableau des 10 derniers scores de l'utilisateur du plus récent au plus ancien 
- * @returns {Error} 500 - ERREUR sur getUserHistory() * 
+ * @returns 500 - ERREUR sur getUserHistory()
 */
 /**
  * History
@@ -24,6 +24,7 @@
  * @security BearerAuth
  * @param {PostScore} request.body.required - id quiz et score du quiz
  * @return {SuccessUserHistory} 200 - message de succès + tableau des 10 derniers scores de l'utilisateur
+ * @returns 500 - ERREUR sur addUserHistory() 
  */
 
 
@@ -44,7 +45,6 @@
  */
 
 /**
- * 
  * @typedef {object} PostScore
  * @property {integer} quiz_id - id du quiz joué
  * @property {integer} quiz_score - score obtenu par l'utilisateur

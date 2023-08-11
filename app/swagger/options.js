@@ -30,7 +30,7 @@ const optionsSwagger = {
   exposeApiDocs: false,
   // Open API JSON Docs endpoint.
   apiDocsPath: '*',
-  notRequiredAsNullable: false,
+  // notRequiredAsNullable: false,
 };
 
 module.exports = optionsSwagger;
