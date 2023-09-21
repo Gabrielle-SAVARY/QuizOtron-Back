@@ -26,9 +26,6 @@ User.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
-  global_score: {
-    type: DataTypes.INTEGER,
-  }
 },{
   defaultScope: {
     attributes: { 

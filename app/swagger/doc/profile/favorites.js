@@ -15,7 +15,6 @@
  * @property {string} email - email de l'utilisateur
  * @property {string} firstname - firstname de l'utilisateur
  * @property {string} lastname - lastname de l'utilisateur
- * @property {number} global_score - global_score de l'utilisateur
  * @property {integer} role_id - role de l'utilisateur
  * @property {array<QuizFavorites>} favorites - quiz favoris de l'utilisateur
 */
