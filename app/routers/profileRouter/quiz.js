@@ -8,8 +8,7 @@ const updateQuiz = require('../../validators/updateQuiz');
 // Import controllers
 const quizUserController = require('../../controllers/profileController/quiz');
 
-//TODO Attention: non utilisé
-// router.get('/', quizUserController.getUserQuizzes);
+router.get('/', quizUserController.getUserQuizzes); //TODO Attention: non utilisé
 router.post('/', isValid(createQuiz.createQuizSchema), quizUserController.createQuiz);
 router.patch('/:id', isValid(updateQuiz.updateQuizSchema), quizUserController.updateQuiz);
 router.delete('/:id', quizUserController.deleteQuiz);
