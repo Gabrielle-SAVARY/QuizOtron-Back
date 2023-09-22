@@ -96,42 +96,20 @@ const quizUserController = {
     }
 },
 
-  // Supprimer un quiz
-  deleteQuiz: async (req, res) => {
-    const quizId = req.params.id;
 
-    try {
-
-      const quiz = await Quiz.findByPk(quizId);
-
-      // Suppression du quiz
-      await quiz.destroy();
-
-      res.json({
-        message: "Le quiz a bien été supprimé",
-      });
-
-    } catch (error) {
-      res.json({
-        statusCode: 500,
-        message: `ERREUR sur deleteQuiz() : ${error}`
-      })
-    }
-  },
-
-  // Modifier un quiz
-  updateQuiz: async (req, res) => {
-    const quizId = req.params.id;
-    const foundQuiz = await Quiz.findByPk(quizId);
-    
-    if(!foundQuiz) return res.status(400).json({
-      statusCode: 400,
-      message: "Le quiz n'existe pas" }
+// Modifier un quiz
+updateQuiz: async (req, res) => {
+  const quizId = req.params.id;
+  const foundQuiz = await Quiz.findByPk(quizId);
+  
+  if(!foundQuiz) return res.status(400).json({
+    statusCode: 400,
+    message: "Le quiz n'existe pas" }
     );
     try {
       // On récupère les données du quiz
       const { title, description, thumbnail, level_id, user_id, tag_id } = req.body.quiz;
-
+      
       // On attribue les données du quiz à un objet updatedQuiz
       const updatedQuiz = {
         title: title,
@@ -140,22 +118,22 @@ const quizUserController = {
         level_id: level_id,
         user_id: user_id,
       };
-
+      
       // On modifie le quiz en bdd
       await Quiz.update(updatedQuiz, {
         where: {
           id: foundQuiz.id,
         },
       });
-
+      
       const tag = await Tag.findByPk(tag_id);
-
+      
       // On retire l'ancien tag de la table de relation
       await foundQuiz.removeTags(foundQuiz.Tags);
       
       // On associe le nouveau tag au quiz
       await foundQuiz.setTags([tag]);
-
+      
       // On récupère les données des questions et des réponses
       const questionsWithAnswers = req.body.questions;
 
@@ -167,7 +145,7 @@ const quizUserController = {
         const [existingQuestion] = await Question.findAll({
           where: { id: questionData.id },
         });
-  
+        
         // Mise à jour de la question existante
         if (existingQuestion) {
           await existingQuestion.update({ question: question });
@@ -175,28 +153,50 @@ const quizUserController = {
         
         for (const answerData of answers) {
           const { id, answer, is_valid } = answerData;
-
+          
           const existingAnswer = await Answer.findByPk(id);
-
-            await existingAnswer.update({
-              answer: answer,
-              is_valid: is_valid,
-            });
+          
+          await existingAnswer.update({
+            answer: answer,
+            is_valid: is_valid,
+          });
         }
       }
     }
+    
+    res.json({
+      message: "Le quiz a bien été modifié.",
+    });
+    
+  } catch (error) {
+    res.json({
+      statusCode: 500,
+      message: `ERREUR sur updateQuiz() : ${error}`
+    })
+  }
+},
+// Supprimer un quiz
+deleteQuiz: async (req, res) => {
+  const quizId = req.params.id;
 
-      res.json({
-        message: "Le quiz a bien été modifié.",
-      });
-      
-    } catch (error) {
-      res.json({
-        statusCode: 500,
-        message: `ERREUR sur updateQuiz() : ${error}`
-      })
-    }
-  },
+  try {
+
+    const quiz = await Quiz.findByPk(quizId);
+
+    // Suppression du quiz
+    await quiz.destroy();
+
+    res.json({
+      message: "Le quiz a bien été supprimé",
+    });
+
+  } catch (error) {
+    res.json({
+      statusCode: 500,
+      message: `ERREUR sur deleteQuiz() : ${error}`
+    })
+  }
+},
   
 }
 
