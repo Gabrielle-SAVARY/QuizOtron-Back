@@ -25,7 +25,6 @@
  * @property {string} firstname Prénom de l'utilisateur
  * @property {string} lastname Nom de l'utilisateur
  * @property {string} password Mot de passe de l'utilisateur
- * @property {integer} global_score Score global de l'utilisateur
  * @property {Role} role Role de l'utilisateur
  */
 

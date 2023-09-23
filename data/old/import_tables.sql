@@ -25,7 +25,6 @@ CREATE TABLE "user" (
     "firstname" TEXT NOT NULL,
     "lastname" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "global_score" INTEGER NULL,
     "role_id" INTEGER NOT NULL,
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMPTZ

@@ -18,7 +18,6 @@ Answer.belongsTo(Question, {
   as: 'question',
 });
 
-
 // relation entre les niveaux et les quiz
 Level.hasMany(Quiz, {
   foreignKey: 'level_id',

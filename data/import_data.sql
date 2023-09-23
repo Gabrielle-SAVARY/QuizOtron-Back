@@ -13,7 +13,7 @@ INSERT INTO "role" ("id", "label") VALUES
 (2, 'admin');
 
 -- Données de la table "user"
-INSERT INTO "user" ("id", "email", "pseudo", "firstname", "lastname", "password", "global_score", "role_id") VALUES
+INSERT INTO "user" ("id", "email", "pseudo", "firstname", "lastname", "password", "role_id") VALUES
 (1, 'sami@gmail.com' , 'sami-dev', 'Sami', 'BEN ABDALLAH', '$2b$10$s4dXZRpF2i4cOkN4LX7cCeI1Bw06BoK1tdv/tN9XBbdcLmXkSsHCi', 1000001, 2),
 (2, 'romain@gmail.com', 'romain-dev', 'Romain', 'ANDINÉ', '$2b$10$s4dXZRpF2i4cOkN4LX7cCeI1Bw06BoK1tdv/tN9XBbdcLmXkSsHCi', 1000000, 2),
 (3, 'gabrielle@gmail.com', 'gabrielle-dev', 'Gabrielle', 'SAVARY', '$2b$10$s4dXZRpF2i4cOkN4LX7cCeI1Bw06BoK1tdv/tN9XBbdcLmXkSsHCi', 1000000, 2),

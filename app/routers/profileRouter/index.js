@@ -7,6 +7,7 @@ const userUpdate = require('../../validators/updateUser');
 // Import controllers
 const profileController = require('../../controllers/profileController');
 // Import Sous-Routes
+router.use('/score', require('./score'));
 router.use('/favorites', require('./favorites'));
 router.use('/history', require('./history'));
 router.use('/quiz', require ('./quiz'));

@@ -30,6 +30,8 @@ app.use((req, res, next) => {
   }
 });
 
+const bodySanitizer = require('./app/middlewares/bodySanitizer');
+app.use(bodySanitizer);
 app.use(router);
 /* ---------- App ---------- */
 expressJSDocSwagger(app)(optionSwagger);
