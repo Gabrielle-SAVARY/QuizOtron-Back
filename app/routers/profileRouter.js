@@ -5,7 +5,4 @@ const router = express.Router();
 router.use('/',require ('./profileRouter/'))
 
 
-// const profileController = require('../controllers/profileController');
-// router.get('/score', profileController.getUserAverageScore);
-
 module.exports = router;
