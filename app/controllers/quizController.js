@@ -5,11 +5,11 @@ const quizController = {
   getAllQuizzes: async (req, res) => {
     try {
       //SQL
-        // SELECT * FROM quiz
-        // INNER JOIN level ON quiz.level_id = level.id
-        // INNER JOIN public.user ON quiz.user_id = public.user.id
-        // INNER JOIN quiz_has_tag ON quiz.id = quiz_has_tag.quiz_id
-        // INNER JOIN tag ON quiz_has_tag.tag_id = tag.id;
+      // SELECT * FROM quiz
+      // INNER JOIN level ON quiz.level_id = level.id
+      // INNER JOIN public.user ON quiz.user_id = public.user.id
+      // INNER JOIN quiz_has_tag ON quiz.id = quiz_has_tag.quiz_id
+      // INNER JOIN tag ON quiz_has_tag.tag_id = tag.id;
       const quizzes = await Quiz.findAll({
         attributes: { exclude: ['level_id', 'user_id'] },
         include: [
@@ -18,19 +18,19 @@ const quizController = {
           },
           {
             association: 'author',
-            attributes: ['id','pseudo']
+            attributes: ['id', 'pseudo']
           },
           {
             association: 'tags',
             through: {
-            attributes: []
+              attributes: []
             }
           },
         ]
       });
-      if(!quizzes) {
+      if (!quizzes) {
         return res.status(404).json({
-          statusCode : 404,
+          statusCode: 404,
           message: 'Impossible de récupérer les quiz'
         })
       }
@@ -39,28 +39,38 @@ const quizController = {
 
     } catch (error) {
       res
-      .status(500)
-      .json({
-        statusCode : 500,
-        message: `ERREUR sur getAllQuizzes() : ${error}`
-      });
+        .status(500)
+        .json({
+          statusCode: 500,
+          message: `ERREUR sur getAllQuizzes() : ${error}`
+        });
     }
   },
 
   // Récupérer un quiz par son id
   getOneQuiz: async (req, res) => {
     try {
-      // Attention revoir pour descructurer le req.params
-      
-      //SQL
-        // SELECT * FROM quiz
-        // INNER JOIN level ON quiz.level_id = level.id
-        // INNER JOIN public.user ON quiz.user_id = public.user.id
-        // INNER JOIN quiz_has_tag ON quiz.id = quiz_has_tag.quiz_id
-        // INNER JOIN tag ON quiz_has_tag.tag_id = tag.id
-        // WHERE quiz.id = 'quizId';
-      
-      const quiz = await Quiz.findByPk(req.params.id, {
+      const quizId = req.params.id;
+      console.log('TYPE OF REQ PARAMS', req.params);
+      console.log('TYPE OF REQ PARAMS', typeof req.params.id);
+      console.log('quizId',quizId);
+
+      if (isNaN(quizId)) {
+        return res.status(400).json({
+          statusCode: 400,
+          message: 'Demande invalide -quiz introuvable'
+        })
+      }
+
+      // SQL
+      // SELECT * FROM quiz
+      // INNER JOIN level ON quiz.level_id = level.id
+      // INNER JOIN public.user ON quiz.user_id = public.user.id
+      // INNER JOIN quiz_has_tag ON quiz.id = quiz_has_tag.quiz_id
+      // INNER JOIN tag ON quiz_has_tag.tag_id = tag.id
+      // WHERE quiz.id = 'quizId';
+
+      const quiz = await Quiz.findByPk(quizId, {
         order: [
           [{ model: Question, as: 'questions' }, { model: Answer, as: 'answers' }, 'id', 'asc']
         ],
@@ -80,30 +90,33 @@ const quizController = {
             },
           },
           {
-            model:Question, as : "questions",
+            model: Question, as: "questions",
             include: [
-              {association: 'answers'}
+              { association: 'answers' }
             ],
           }
         ]
       });
 
-      if(!quiz) {return res.status(404).json(
-        {
-          statusCode : 404,
-          message: 'Quiz introuvable'
-        }
-        )}
-         
-      res.json(quiz);
+      if (!quiz) {
+        return res.status(404).json(
+          {
+            statusCode: 404,
+            message: 'Quiz introuvable'
+          }
+        )
+      } else {
+        res.json(quiz);
+      }
+
 
     } catch (error) {
       res
-      .status(500)
-      .json({
-        statusCode : 500,
-        message: `ERREUR sur getOneQuiz() : ${error}`
-      });
+        .status(500)
+        .json({
+          statusCode: 500,
+          message: `ERREUR sur getOneQuiz() : ${error}`
+        });
     }
   },
 

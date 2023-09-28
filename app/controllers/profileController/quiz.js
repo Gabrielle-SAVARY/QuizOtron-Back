@@ -100,8 +100,13 @@ const quizUserController = {
 // Modifier un quiz
 updateQuiz: async (req, res) => {
   const quizId = req.params.id;
-  const foundQuiz = await Quiz.findByPk(quizId);
-  
+  if (isNaN(quizId)) {
+    return res.status(400).json({
+      statusCode: 400,
+      message: 'Demande invalide - quiz introuvable'
+    })
+  }
+  const foundQuiz = await Quiz.findByPk(quizId);  
   if(!foundQuiz) return res.status(400).json({
     statusCode: 400,
     message: "Le quiz n'existe pas" }
@@ -178,6 +183,12 @@ updateQuiz: async (req, res) => {
 // Supprimer un quiz
 deleteQuiz: async (req, res) => {
   const quizId = req.params.id;
+  if (isNaN(quizId)) {
+    return res.status(400).json({
+      statusCode: 400,
+      message: 'Demande invalide - quiz introuvable'
+    })
+  }
 
   try {
 

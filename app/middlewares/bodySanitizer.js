@@ -33,6 +33,7 @@ const sanitizer = require('sanitizer');
       req.body = escapeValue(req.body);
     }    
     console.log('req.body APRES', req.body);
+        
     next();
   };
   
