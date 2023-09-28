@@ -20,8 +20,6 @@ const scoreUserController = {
           ],
         ],
       });
-      console.log('averageScore',averageScore);
-      console.log('averageScore TYPE',typeof averageScore);
 
       res.json(averageScore);
     }
