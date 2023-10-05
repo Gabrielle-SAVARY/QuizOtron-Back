@@ -30,7 +30,6 @@ const checkToken = (req, res, next) => {
     return res.status(401).json(
       {
         statusCode:401,
-        message: 'No token provided'
       });
   }
 
@@ -44,7 +43,6 @@ const checkToken = (req, res, next) => {
       return res.status(401).json(
         {
           statusCode:401,
-          message: 'Invalid token'
         });
       }
 
@@ -59,7 +57,6 @@ const checkToken = (req, res, next) => {
       return res.status(401).json(
         {
           statusCode:401,
-          message: 'Session expirée, veuillez vous reconnecter'
         });
     }
 
