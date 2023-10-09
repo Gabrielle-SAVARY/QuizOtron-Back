@@ -1,4 +1,3 @@
-// TODO s'occuper du score
 const { Sequelize } = require('sequelize');
 const { Score } = require("../../models");
 
@@ -24,9 +23,9 @@ const scoreUserController = {
       res.json(averageScore);
     }
     catch (error) {
-      console.log('error',error);
       res.json({
-        message: `ERREUR : ${error}`
+        statusCode: 500,
+        message: `ERREUR getUserAverageScore() : ${error}`
       })
     }
   },

@@ -5,7 +5,7 @@ dotenv.config();
 /* ---------- Express ---------- */
 const express = require('express');
 const bodyParser = require('body-parser');
-const router = require('./app/router');
+const router = require('./app/routers/index.js');
 const optionSwagger = require('./app/swagger/options.js');
 const expressJSDocSwagger = require('express-jsdoc-swagger');
 

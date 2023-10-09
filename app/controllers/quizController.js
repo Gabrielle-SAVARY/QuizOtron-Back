@@ -12,6 +12,7 @@ const quizController = {
       // INNER JOIN tag ON quiz_has_tag.tag_id = tag.id;
       const quizzes = await Quiz.findAll({
         attributes: { exclude: ['level_id', 'user_id'] },
+        order: [['id', 'DESC']],
         include: [
           {
             association: 'level',

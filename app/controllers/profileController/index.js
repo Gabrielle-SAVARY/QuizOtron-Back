@@ -5,11 +5,9 @@ const bcrypt = require("bcrypt");
 const userController = {
   // Récupérer les informations de l'utilisateur
   getUserInfos: async (req, res) => {
-    const { pseudo } = req.user;
+    const { id } = req.user;
     try {
-      const user = await User.findOne({
-        where: { pseudo },        
-      });
+      const user = await User.findByPk(id);
       res.json(user);
     } catch (error) {
       res.json({
