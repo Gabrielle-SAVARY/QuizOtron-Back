@@ -12,7 +12,7 @@
  * "password" : "123456",
  * "passwordConfirm" : "123456"
  * }
- * @return {SuccessSignup} 200 - message de succès
+ * @return {SuccessSignup} 201 - message de succès
  * @return {Error} 400 - Erreur email ou pseudo déjà utilisé
  * @return {Error} 500 - ERREUR sur register()
  */
@@ -48,7 +48,7 @@
  * @property {string} password mot de passe de l'utilisateur
  */
 /**
- * Logged User - données retournées ssuite connexion utilisateur
+ * Logged User - données retournées suite connexion utilisateur
  * @typedef {object} LoggedUser détails d'un utilisateur connecté
  * @property {boolean} logged indique si l'utilisateur est connecté
  * @property {integer} id id de l'utilisateur

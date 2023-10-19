@@ -5,11 +5,12 @@ const bcrypt = require("bcrypt");
 const userController = {
   // Récupérer les informations de l'utilisateur
   getUserInfos: async (req, res) => {
-    const { pseudo } = req.user;
+    const { id } = req.user;
     try {
-      const user = await User.findOne({
-        where: { pseudo },        
-      });
+    // const foundUser ='SELECT * FROM public.user WHERE id = $1;';
+    // values = [id];
+    // const response = await db.query(foundUser, values);
+      const user = await User.findByPk(id);
       res.json(user);
     } catch (error) {
       res.json({
@@ -24,16 +25,22 @@ const userController = {
     const { id } = req.user;
 
     try {
+    // const foundUser ='SELECT * FROM public.user WHERE id = $1;';
+    // values = [id];
+    // const response = await db.query(foundUser, values);
       const user = await User.scope('withPassword').findByPk(id)
 
       let newUser = req.body;
 
       if (newUser.email) {
-        // Si l'utilisateur a renseigné un nouvel email, on vérifie qu'il n'existe pas déjà en base de données
+    // Si nouvel email, on vérifie qu'il n'existe pas déjà en bdd
+    // const foundEmail ='SELECT * FROM public.user WHERE email ILIKE $1;';
+    // values = [email];
+    // const response = await db.query(foundEmail, values);
         const emailExists = await User.findOne({
           where: {
             email: {
-              // On utilise Op.iLike car on veut que la recherche soit insensible à la casse
+              // Insensible à la casse
               [Op.iLike]: newUser.email,
             }
           }
@@ -70,8 +77,8 @@ const userController = {
             message: "Les mots de passes ne sont pas identiques"
             });
         }
-        // Si l'utilisateur a renseigné un ancien mot de passe, on vérifie qu'il correspond à celui en base de données
-        // Et ensuite on hash le nouveau mot de passe
+        // Si ancien mot de passe, on vérifie qu'il correspond à celui en bdd
+        // Puis hash du nouveau mot de passe
         const match = await bcrypt.compare(newUser.oldPassword, user.password);
         if (!match) {
           return res.status(400).json({
@@ -83,6 +90,9 @@ const userController = {
         const hash = bcrypt.hashSync(newUser.password, 10);
         newUser.password = hash;
       }
+      //const query = 'UPDATE public.user SET email = $1, pseudo = $2, password = $3 WHERE id = $4';
+      //const values = [newUser.email, newUser.pseudo, newUser.password, id];
+      //const result = await pool.query(query, values);
       await user.update(newUser);
       res.json({
         message: "Votre compte a bien été mis à jour!"
@@ -100,14 +110,18 @@ const userController = {
   // Supprimer un utilisateur
   deleteUser: async (req, res) => {
     const { pseudo } = req.user;
-
+    // const foundUser ='SELECT * FROM public.user WHERE pseudo = $1;';
+    // values = [pseudo];
+    // const response = await db.query(foundUser, values);
     try {
       const user = await User.findOne({
         where: {
           pseudo: pseudo
         }
       });
-
+    // const requestSQL ='DELETE FROM public.user WHERE pseudo = $1';
+    // values = [user.pseudo]
+    // const response = await db.query(requestSQL, values);
       await user.destroy();
 
       res.json({
