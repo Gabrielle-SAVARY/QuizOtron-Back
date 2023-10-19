@@ -10,9 +10,9 @@ const authController = {
     const {pseudo, email,  firstname, lastname, password} = req.body;
 
     // On vérifie que l'email n'est pas déjà utilisé
-    // SQL
-      // SELECT * FROM public.user 
-      // WHERE "email" ILIKE 'email@gmail.com';
+    // const foundEmail ='SELECT * FROM public.user WHERE email ILIKE $1;';
+    // values = [email];
+    // const response = await db.query(foundEmail, values);
     const emailExists = await User.findOne({
       where: {
         email: {
@@ -30,9 +30,6 @@ const authController = {
     }
 
     // On vérifie que le pseudo n'est pas déjà utilisé
-    // SQL
-      // SELECT * FROM public.user 
-      // WHERE pseudo ILIKE 'pseudo';
     const pseudoExists = await User.findOne({
       where: {
         pseudo: {
@@ -63,14 +60,10 @@ const authController = {
 
     try {
       // SQL
-      // INSERT INTO public.user (pseudo, email, firstname, lastname, password, role_id) 
-      // VALUES ('pseudo', 'email@gmail.com', 'firstname', 'lastname', 'test', '1');
+      // const query = "INSERT INTO public.user (pseudo, email, firstname, lastname, password, role_id) VALUES ($1, $2, $3, $4, $5, '$6')";
+      // const value = ["newUser.pseudo", "newUser.email", "newUser.firstname", "newUser.lastname", "newUser.password, newUser.role_id"];
+      // const returnValue = pg.query(query, value);
 
-      // exemple requête préparée sans SEQUELIZE
-      // const preparedQuery = "INSERT INTO public.user (pseudo, email, firstname, lastname, password, role_id) VALUES ($1, $2, $3, $4, $5, '1')";
-      // const value = ["pseudo", "email", "firstname", "lastname", "password"];
-      // const returnValue = pg.query(preparedQuery, value);
-      // console.log(returnValue)
       await User.create(newUser);
       res.status(201).json({
         message: "Votre compte a bien été créé",
@@ -92,7 +85,6 @@ const authController = {
     const { email, password } = req.body;
 
     try {
-      // SELECT * FROM public.user WHERE "email" ILIKE 'email@gmail.com';
       const user = await User.scope('withPassword').findOne({
         where: {
           email: {

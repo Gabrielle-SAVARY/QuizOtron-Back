@@ -11,8 +11,7 @@ const login = require('../validators/login');
 const router = express.Router();
 
 
-router.use('/profile', checkToken, require('./profileRouter')); // TODO à supprimer si supp averageScore
-// router.use('/profile', checkToken, require('./routers/profileRouter/')); // TODO a mettre en place si supp averageScore
+router.use('/profile', checkToken, require('./profileRouter')); 
 router.use('/quiz', require('./quizRouter'));
 
 router.use('/tag', require('./tagRouter'));
