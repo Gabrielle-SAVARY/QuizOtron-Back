@@ -46,7 +46,7 @@ const checkToken = (req, res, next) => {
         });
       }
 
-      console.log('decoded', decoded);
+      // console.log('decoded', decoded);
       // LOG de decoded
       // decoded = { id: 9, pseudo: 'Mouss', iat: 1691673536, exp: 1691684336 }
       // iat = date de création du token en timestamp

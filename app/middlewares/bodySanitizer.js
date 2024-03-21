@@ -4,14 +4,14 @@ const sanitizer = require('sanitizer');
   function escapeValue(value) {
     if (typeof value === 'string') {
         // Échapper les caractères spéciaux
-        console.log('string !!!', value);
+        // console.log('string !!!', value);
         return  sanitizer.escape(value); 
     } else if (Array.isArray(value)) {
-        console.log('tableau !!!', value);
+        // console.log('tableau !!!', value);
       // Échappe chaque élément du tableau
       return value.map(escapeValue);
     } else if (typeof value === 'object' && value !== null) {
-        console.log('objet !!!', value);
+        // console.log('objet !!!', value);
       // Échappe chaque valeur de l'objet
       const escapedObject = {};
       for (const key in value) {
@@ -28,11 +28,11 @@ const sanitizer = require('sanitizer');
   
   // Échappe toutes les valeurs du corps de la requête
   const bodySanitizer = (req, res, next) => {
-    console.log('req.body AVANT', req.body);
+    // console.log('req.body AVANT', req.body);
     if (req.body) {
       req.body = escapeValue(req.body);
     }    
-    console.log('req.body APRES', req.body);
+    // console.log('req.body APRES', req.body);
         
     next();
   };

@@ -1,15 +1,16 @@
 const { User } = require("../../models");
 const { Op } = require("sequelize");
 const bcrypt = require("bcrypt");
+const { getToken } = require("../../middlewares/jwt");
 
 const userController = {
   // Récupérer les informations de l'utilisateur
   getUserInfos: async (req, res) => {
     const { id } = req.user;
     try {
-    // const foundUser ='SELECT * FROM public.user WHERE id = $1;';
-    // values = [id];
-    // const response = await db.query(foundUser, values);
+      // const foundUser ='SELECT * FROM public.user WHERE id = $1;';
+      // values = [id];
+      // const response = await db.query(foundUser, values);
       const user = await User.findByPk(id);
       res.json(user);
     } catch (error) {
@@ -25,18 +26,18 @@ const userController = {
     const { id } = req.user;
 
     try {
-    // const foundUser ='SELECT * FROM public.user WHERE id = $1;';
-    // values = [id];
-    // const response = await db.query(foundUser, values);
+      // const foundUser ='SELECT * FROM public.user WHERE id = $1;';
+      // values = [id];
+      // const response = await db.query(foundUser, values);
       const user = await User.scope('withPassword').findByPk(id)
 
       let newUser = req.body;
 
       if (newUser.email) {
-    // Si nouvel email, on vérifie qu'il n'existe pas déjà en bdd
-    // const foundEmail ='SELECT * FROM public.user WHERE email ILIKE $1;';
-    // values = [email];
-    // const response = await db.query(foundEmail, values);
+        // Si nouvel email, on vérifie qu'il n'existe pas déjà en bdd
+        // const foundEmail ='SELECT * FROM public.user WHERE email ILIKE $1;';
+        // values = [email];
+        // const response = await db.query(foundEmail, values);
         const emailExists = await User.findOne({
           where: {
             email: {
@@ -45,11 +46,11 @@ const userController = {
             }
           }
         });
-    
+
         if (emailExists && newUser.email !== user.email) {
           return res.status(400).json({
-            statusCode : 400,
-            message : "Cet email est déjà utilisé"
+            statusCode: 400,
+            message: "Cet email est déjà utilisé"
           });
         }
 
@@ -62,20 +63,20 @@ const userController = {
             }
           }
         });
-    
+
         if (pseudoExists && newUser.pseudo !== user.pseudo) {
           return res.status(400).json({
-            statusCode : 400,
-            message : "Ce pseudo est déjà utilisé"
+            statusCode: 400,
+            message: "Ce pseudo est déjà utilisé"
           });
         }
       }
-      if (newUser.oldPassword && newUser.password) {        
-        if( newUser.password != newUser.passwordConfirm){
+      if (newUser.oldPassword && newUser.password) {
+        if (newUser.password != newUser.passwordConfirm) {
           return res.status(400).json({
             statusCode: 400,
             message: "Les mots de passes ne sont pas identiques"
-            });
+          });
         }
         // Si ancien mot de passe, on vérifie qu'il correspond à celui en bdd
         // Puis hash du nouveau mot de passe
@@ -84,7 +85,7 @@ const userController = {
           return res.status(400).json({
             statusCode: 400,
             message: "L'ancien mot de passe est incorrect"
-            });
+          });
         }
 
         const hash = bcrypt.hashSync(newUser.password, 10);
@@ -95,6 +96,7 @@ const userController = {
       //const result = await pool.query(query, values);
       await user.update(newUser);
       res.json({
+        token: getToken(newUser),
         message: "Votre compte a bien été mis à jour!"
       });
 
@@ -110,18 +112,45 @@ const userController = {
   // Supprimer un utilisateur
   deleteUser: async (req, res) => {
     const { pseudo } = req.user;
+    const { id } = req.user;
     // const foundUser ='SELECT * FROM public.user WHERE pseudo = $1;';
     // values = [pseudo];
     // const response = await db.query(foundUser, values);
     try {
+
+      // Récupérer les quizzes de l'utilisateur
+      const userQuizzes = await User.findByPk(id,{
+        include: [
+          {
+            association: 'quizzes',
+            include: [
+              {
+                association: 'tags',
+                through: {
+                  attributes: []
+                }
+              }
+            ]
+          }
+        ]
+      });
+
+      // Supprimer les quiz de l'utilisateur
+      if (userQuizzes && userQuizzes.quizzes.length > 0) {
+        userQuizzes.quizzes.forEach(async (quiz) => {
+          await quiz.destroy();
+        });
+      }
+
       const user = await User.findOne({
         where: {
           pseudo: pseudo
         }
       });
-    // const requestSQL ='DELETE FROM public.user WHERE pseudo = $1';
-    // values = [user.pseudo]
-    // const response = await db.query(requestSQL, values);
+
+      // const requestSQL ='DELETE FROM public.user WHERE pseudo = $1';
+      // values = [user.pseudo]
+      // const response = await db.query(requestSQL, values);
       await user.destroy();
 
       res.json({
@@ -135,7 +164,7 @@ const userController = {
       })
     }
   },
-  
+
 };
 
 module.exports = userController;

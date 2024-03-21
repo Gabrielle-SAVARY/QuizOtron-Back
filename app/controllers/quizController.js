@@ -52,9 +52,9 @@ const quizController = {
   getOneQuiz: async (req, res) => {
     try {
       const quizId = req.params.id;
-      console.log('TYPE OF REQ PARAMS', req.params);
-      console.log('TYPE OF REQ PARAMS', typeof req.params.id);
-      console.log('quizId',quizId);
+      // console.log('TYPE OF REQ PARAMS', req.params);
+      // console.log('TYPE OF REQ PARAMS', typeof req.params.id);
+      // console.log('quizId',quizId);
 
       if (isNaN(quizId)) {
         return res.status(400).json({
